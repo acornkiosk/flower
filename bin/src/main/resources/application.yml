@@ -3,7 +3,7 @@ server:
   port: 9000
 ##context path 설정
   servlet:
-    context-path: /acornkiosk
+    context-path: /flower
     session:
       tracking-modes: cookie
 ## oracle DataSource Setting ( Connection Pool )
@@ -22,5 +22,5 @@ spring:
 ## type alias scan setting @Alias 어노테이션이 붙은ㅋ 클래스를 찾아서 사용할 준비
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.acorn.kiosk.**
+  type-aliases-package: com.acorn.flower.**
 ## file size, reqeust size setting

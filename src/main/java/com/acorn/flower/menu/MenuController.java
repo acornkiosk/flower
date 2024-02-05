@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MenuController {
 	@Autowired private MenuService service;
 
+
 	@PostMapping("/menu/update")
 	public String updateMenu(MenuDto dto) {
 		
@@ -27,6 +28,29 @@ public class MenuController {
 		
 		return "menu/update";
 	}
+
+	
+	@GetMapping("/menu/menu_main")
+	public String MainMenu() {
+		
+		return "menu/menu_main";
+	}
+	
+	@GetMapping("/menu/insert_form")
+	public String insertForm() {
+		
+		return "menu/insert_form";
+	}
+	
+	@PostMapping("/menu/insert")
+	public String insert(MenuDto dto) {
+		service.addMenu(dto);
+		return "menu/menu_main";
+	}
+	
+	
+	
+
 	
 	@GetMapping("/menu/delete")
 	public String deleteMenu(int id) {
