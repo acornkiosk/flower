@@ -4,6 +4,7 @@ package com.acorn.flower.menu;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,10 +21,18 @@ public class MenuController {
 	@Autowired private MenuService service;
 
 	@PostMapping("/menu/update")
-	public String menuUpdate(MenuDto dto) {
+	public String updateMenu(MenuDto dto) {
 		
 		service.updateMenu(dto);
 		
 		return "menu/update";
+	}
+	
+	@GetMapping("/menu/delete")
+	public String deleteMenu(int id) {
+		
+		service.deleteMenu(id);
+		
+		return "menu/delete";
 	}
 }

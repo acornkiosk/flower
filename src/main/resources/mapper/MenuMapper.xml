@@ -14,4 +14,9 @@
 		WHERE id=#{id}
 	</update>
 	
+	<delete id="delete" parameterType="int">
+		DELETE menu_info
+		WHERE id=#{id}
+	</delete>
+	
 </mapper>
