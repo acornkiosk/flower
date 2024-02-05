@@ -3,6 +3,8 @@ package com.acorn.flower.menu;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +29,17 @@ public class MenuApiController {
 	}
 	
 	@PostMapping("/api/updateMenu")
-	public String menuUpdate(@RequestBody MenuDto dto) {
+	public String updateMenu(@RequestBody MenuDto dto) {
 		
 		service.updateMenu(dto);
+		
+		return "ok";
+	}
+	
+	@GetMapping("/api/deleteMenu/{id}")
+	public String deleteMenu(@PathVariable int id) {
+		
+		service.deleteMenu(id);
 		
 		return "ok";
 	}

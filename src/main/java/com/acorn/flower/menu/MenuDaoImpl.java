@@ -21,6 +21,12 @@ public class MenuDaoImpl implements MenuDao {
 		session.update("menu.update", dto);
 		
 	}
+
+	@Override
+	public void delete(int id) {
+		session.delete("menu.delete", id);
+		
+	}
     
     
 }
