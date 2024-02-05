@@ -1,4 +1,4 @@
-package com.acorn.flower.menu;
+package com.acorn.flower.kiosk;
 
 import org.apache.ibatis.type.Alias;
 
@@ -6,17 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Alias("menuDto")
+
+@Alias("kioskDto")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MenuDto {
+public class KioskDto {
 	private int id;
-	private String name;
-	private int price;
-	private String description;
-	private String img_url;
-	private String is_sold;
-	private String category;
+	private String location;
+	private String isUsing;
 }
