@@ -15,5 +15,5 @@ import lombok.NoArgsConstructor;
 public class KioskDto {
 	private int id;
 	private String location;
-	private String isUsing;
+	private String is_using;
 }
