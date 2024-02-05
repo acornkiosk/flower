@@ -7,6 +7,11 @@
 		(id, name, price, description,img_url,is_sold,category)
 		VALUES(menu_seq.NEXTVAL,#{name},#{price},#{description},#{img_url},#{is_sold},#{category})
 	</select>
-
+	
+	<update id="update" parameterType="menuDto">
+		UPDATE menu_info
+		SET name=#{name}, price=#{price}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
+		WHERE id=#{id}
+	</update>
+	
 </mapper>
-
