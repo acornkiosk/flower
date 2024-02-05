@@ -20,4 +20,14 @@ CREATE TABLE menu_info(
  is_sold VARCHAR2(50) NOT NULL,
  category VARCHAR2(50) NOT NULL);
  
+ DROP sequence menu_seq;
+ DROP table menu_info;
+ 
+INSERT INTO menu_info
+  (ID, NAME, PRICE, DESCRIPTION, IMG_URL, IS_SOLD, CATEGORY) 
+VALUES 
+  (menu_seq.nextVal, '꽃', 2000, '예쁜 꽃', NULL, '팜', '한송이');
+
+
+ 
 

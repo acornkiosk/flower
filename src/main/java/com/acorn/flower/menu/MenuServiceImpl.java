@@ -11,11 +11,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired private MenuDao menuDao;
+
 	
 	@Override
 	public void addMenu(MenuDto dto) {
 		
 		menuDao.insert(dto);
+		
+	}
+
+	@Override
+	public void updateMenu(MenuDto dto) {
+		menuDao.update(dto);
 		
 	}
 	

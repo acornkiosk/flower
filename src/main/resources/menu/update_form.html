@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<h3>메뉴 업데이트 페이지다.</h3>
+		<form th:action="@{/menu/update}" method="post">
+			<label>메뉴 번호</label>
+			<input type="text" name="id"/>
+			
+			<label>메뉴 이름</label>
+			<input type="text" name="name"/>
+			
+			<label>메뉴 가격</label>
+			<input type="text" name="price"/>
+			
+			<label>메뉴 설명</label>
+			<input type="text" name="description"/>
+			<button type="submit">전송!</button>
+		</form>
+	</div>
+</body>
+</html>
