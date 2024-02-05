@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 public class MenuDaoImpl implements MenuDao {
     @Autowired 
     private SqlSession session;
+
+	@Override
+	public void insert(MenuDto dto) {
+		session.insert("menu.insert",dto);
+		
+	}
     
     
 }
