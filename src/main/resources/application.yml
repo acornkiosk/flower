@@ -3,7 +3,7 @@ server:
   port: 9000
 ##context path 설정
   servlet:
-    context-path: /acornkiosk
+    context-path: /flower
     session:
       tracking-modes: cookie
 ## oracle DataSource Setting ( Connection Pool )
