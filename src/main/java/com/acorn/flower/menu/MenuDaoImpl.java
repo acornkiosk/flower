@@ -1,4 +1,4 @@
-package com.acorn.kiosk.menu;
+package com.acorn.flower.menu;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.acorn.kiosk.menu;
+package com.acorn.flower.menu;
 
 public interface MenuService {
 
