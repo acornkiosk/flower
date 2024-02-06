@@ -1,84 +1,79 @@
 package com.acorn.flower.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+@Configuration //설정 클래스라는 것을 알려준다.
+@EnableWebSecurity //Security 를 설정하기 위한 이노테이션
 public class SecurityConfig {
-
+	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		//화이트 리스트를 미리 배열에 넣어두기
-				String[] whiteList= {"/", "/api/**", "/menu/**","/test/**"};
+	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
+		
+		String[] whiteList= {"/","/login/login_form"};
+		
+		hs
+		.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 
+		hs.authorizeHttpRequests(config->
+			config
+			.requestMatchers(whiteList).permitAll() //whiteList 요청은 로그인과 상관없이 모두 허용
+			.requestMatchers("/super/**").hasRole("SUPER") //슈퍼계정
+			.requestMatchers("/owner/**").hasAnyRole("CEO")  //사장
+			.requestMatchers("/user/**").hasAnyRole("CEO","EMP","SUPER")  //사장+사원
+			.anyRequest().authenticated()
+		)
+		.formLogin(config->
+			config
+			.loginPage("/login/login_form")
+			.loginProcessingUrl("/login/login") //security가 경로를 알 수 있게 경로 처리해준다.
+			.usernameParameter("user_id")
+			.passwordParameter("user_pwd")
+			.successHandler(new AuthSuccessHandler()) //로그인 성공시 핸들러
+			.failureForwardUrl("/login/fail") //로그인 실패경로
+			.permitAll() //위에 명시한 모든 여청겨로를 로그인 없이 요청할수 있도록 설정
+		)
+		.logout(config->
+			config
+				.logoutUrl("/login/logout")  
+				.logoutSuccessUrl("/") //로그아웃 성공시
+				.permitAll() 
+		)
+		.exceptionHandling(config->
+			config
+				.accessDeniedPage("/login/roleFail") //권한에 맞지 않는 경로 요청시 이동시킬 경로
+		);
 				
-				//메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
-				httpSecurity
-				.csrf(csrf->csrf.disable())
-				.authorizeHttpRequests(config -> 
-					config
-						.requestMatchers(whiteList).permitAll() //whiteList 요청은 로그인과 상관없이 모두 허용
-						.requestMatchers("/admin/**").hasRole("ADMIN")
-						.requestMatchers("/staff/**").hasAnyRole("ADMIN", "STAFF")
-						.anyRequest().authenticated() //위에 명시한 이외의 모든 요청은 로그인해야지 요청가능하게
-				)
-				.formLogin(config -> 
-					config
-						//인증을 거치지 않은 사용자를 리다일렉트 시킬 경로 설정 
-						.loginPage("/user/required_loginform")
-						//로그인 처리를 할때 요청될 url 설정 ( spring security 가 login 처리를 대신 해준다)
-						.loginProcessingUrl("/user/login")
-						//로그인 처리를 대신 하려면 어떤 파라미터명으로 username 과 password 가 넘어오는지 알려주기 
-						.usernameParameter("userName") 
-						.passwordParameter("password")
-						.successHandler(new AuthSuccessHandler())//로그인 성공 핸들러 등록
-						.failureForwardUrl("/user/login_fail") //로그인 실패시 forward 될 url 설정
-						.permitAll() //위에 명시한 모든 요청경로를 로그인 없이 요청할수 있도록 설정 
-				)
-				.logout(config ->
-					config
-						.logoutUrl("/user/logout")//Spring Security 가 자동으로 로그아웃 처리 해줄 경로 설정
-						.logoutSuccessUrl("/")//로그 아웃 이후에 리다일렉트 시킬 경로 설정
-						.permitAll()
-				)
-				.exceptionHandling(config ->
-					//403 forbidden 인 경우 forward 이동 시킬 경로 설정 
-					config.accessDeniedPage("/user/denied")
-				)
-				.sessionManagement(config ->
-					config
-						.maximumSessions(1) //최대 허용 세션 갯수
-						.expiredUrl("/user/expired") //허용 세션 갯수가 넘어서 로그인 해제된 경우 리다일렉트 이동시킬 경로
-				);
-				//설정된 정보대로 SecurityFilterChain 객체를 만들어서 반환한다 
-				return httpSecurity.build();
+		
+		return hs.build();
 	}
 	
-	//비밀번호를 암호화 해주는 객체를 bean 으로 만든다.
-		@Bean
-		PasswordEncoder passwordEncoder() { 
-			return new BCryptPasswordEncoder();
-		}
-		//인증 메니저 객체를 bean 으로 만든다. (Spring Security 가 자동 로그인 처리할때도 사용되는 객체)
-//		@Bean
-//		AuthenticationManager authenticationManager(HttpSecurity http, 
-//				BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailsService userDetailService) throws Exception {
-//		    
-//			return http.getSharedObject(AuthenticationManagerBuilder.class) 
-//		      .userDetailsService(userDetailService)
-//		      .passwordEncoder(bCryptPasswordEncoder)
-//		      .and()
-//		      .build();
-//		}
-//	
+	//비밀번호를 암호화 해주는 객체를 bean으로 ㅅ만든다
+	@Bean
+	PasswordEncoder pe() {
+		return new BCryptPasswordEncoder();
+	}
+
+	//인증 매니저 객체를 bean 으로 만든다 (s s 가 자동 로그인 처리할떄도 사용되는 객체
+	@Bean
+	AuthenticationManager am(HttpSecurity http,
+			BCryptPasswordEncoder bcryptPasswordEncoder,UserDetailsService userDetailsService) throws Exception{
+		
+		return http.getSharedObject(AuthenticationManagerBuilder.class)
+				.userDetailsService(userDetailsService)
+				.passwordEncoder(bcryptPasswordEncoder)
+				.and()
+				.build();
+		
+	}
+
 }
