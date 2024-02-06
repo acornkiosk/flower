@@ -4,8 +4,8 @@
 
 	<select id="insert" parameterType="menuDto">
 		INSERT INTO menu_info 
-		(id, name, price, description,img_url,is_sold,category)
-		VALUES(menu_seq.NEXTVAL,#{name},#{price},#{description},#{img_url},'false',#{category})
+		(id, name, price, one_sentence, description, img_url, is_sold, category)
+		VALUES(menu_seq.NEXTVAL,#{name},#{price}, #{one_sentence}, #{description},#{img_url},'false',#{category})
 	</select>
 	
 	<update id="update" parameterType="menuDto">
@@ -20,7 +20,7 @@
 	</delete>
 	
 	<select id="getList" resultType="menuDto">
-		SELECT id, name, price, description,img_url,is_sold,category
+		SELECT id, name, price, one_sentence, description, img_url, is_sold, category
 		FROM menu_info
 	</select>
 	
@@ -34,5 +34,7 @@
 		SELECT category
 		FROM category_list
 	</select>
+
+
 	
 </mapper>
