@@ -20,7 +20,9 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		//화이트 리스트를 미리 배열에 넣어두기
-				String[] whiteList= {"/", "/api/**", "/menu/**","/test/**"};
+				String[] whiteList= {"/", "/api/**", "/menu/**","/test/**","/test/kiosk/**","/css/**","/img/**","/js/**","/scss/**","/vendor/**",
+						"/kiosk/**"
+				};
 				
 				//메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
 				httpSecurity

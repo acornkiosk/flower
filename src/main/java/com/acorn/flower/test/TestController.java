@@ -16,4 +16,9 @@ public class TestController {
 		
 		return "test/index";
 	}
+	
+	@GetMapping("/test/kiosk/index")
+	public String kioskIndex() {
+		return "test/kiosk/index";
+	}
 }
