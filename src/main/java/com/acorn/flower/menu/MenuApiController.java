@@ -3,6 +3,7 @@ package com.acorn.flower.menu;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MenuApiController {
 	@Autowired private MenuService service;
+	
+	//메뉴 메인에 model을 넘기기?
+	@GetMapping("/api/menuList")
+	public String menuList(Model model) {
+		service.getList(model);
+		return "ok";
+	}
 	
 	@PostMapping("/api/addMenu")
 	public String addMenu(@RequestBody MenuDto dto) {
@@ -43,5 +51,6 @@ public class MenuApiController {
 		
 		return "ok";
 	}
+	
 	
 }
