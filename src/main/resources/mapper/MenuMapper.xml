@@ -19,4 +19,9 @@
 		WHERE id=#{id}
 	</delete>
 	
+	<select id="getList" resultType="menuDto">
+		SELECT id, name, price, description,img_url,is_sold,category
+		FROM menu_info
+	</select>
+	
 </mapper>
