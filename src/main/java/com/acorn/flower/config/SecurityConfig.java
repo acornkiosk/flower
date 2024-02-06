@@ -20,10 +20,15 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
 		
-		String[] whiteList= {"/","/login/login_form","/api/**", "/menu/**","/upload/**","/test/**"};
+		String[] whiteList= {"/",
+				"/login/login_form",
+				"/api/**", 
+				"/menu/**",
+				"/upload/**",
+				"/test/**", "/test/kiosk/**","/css/**","/img/**","/js/**","/scss/**","/vendor/**",
+				"/kiosk/**"};
 		
-		hs
-		.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 
+		hs.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 
 		hs.authorizeHttpRequests(config->
 			config
 			.requestMatchers(whiteList).permitAll() //whiteList 요청은 로그인과 상관없이 모두 허용
@@ -52,8 +57,7 @@ public class SecurityConfig {
 			config
 				.accessDeniedPage("/login/roleFail") //권한에 맞지 않는 경로 요청시 이동시킬 경로
 		);
-				
-		
+
 		return hs.build();
 	}
 	
