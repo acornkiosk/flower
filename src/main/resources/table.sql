@@ -1,7 +1,6 @@
 
 --키오스크 관리 DB 생성
 CREATE SEQUENCE seq_kiosk_id;
-
 CREATE TABLE kiosk(
 	id NUMBER CONSTRAINT kiosk_id_pk PRIMARY KEY, -- 키오스크 아이디
 	location VARCHAR2(50) CONSTRAINT kiosk_location_nn NOT NULL, -- 키오스크 위치
@@ -28,6 +27,14 @@ INSERT INTO menu_info
 VALUES 
   (menu_seq.nextVal, '꽃', 2000, '예쁜 꽃', NULL, '팜', '한송이');
 
+-- 사용자 관리 DB 생성
+CREATE SEQUENCE seq_user_id;
+CREATE TABLE users (
+    id VARCHAR2(100) CONSTRAINT users_id_pk PRIMARY KEY, -- 사용자 아이디
+    password VARCHAR2(100) CONSTRAINT users_password_nn NOT NULL, -- 사용자 비밀번호
+    role VARCHAR2(50) CONSTRAINT users_role_nn NOT NULL -- 역할
+);
 
- 
+DROP TABLE users;
 
+SELECT * from kiosk;

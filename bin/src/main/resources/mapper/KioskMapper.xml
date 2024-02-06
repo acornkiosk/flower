@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kiosk">
+	<update id="turnOffAll">
+		UPDATE kiosk
+		SET is_using = 'fasle'
+	</update>
+	<update id="turnOnAll">
+		UPDATE kiosk
+		SET is_using = 'true'
+	</update>
+	<update id="turnOn" parameterType="int">
+		UPDATE kiosk
+		SET is_using='true'
+		WHERE id=#{id}
+	</update>
+	<update id="turnOff" parameterType="int">
+		UPDATE kiosk
+		SET is_using='false'
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM kiosk
+		WHERE id=#{id}
+	</delete>
+	<select id="getKioskList" resultType="kioskDto">
+		SELECT *
+		FROM kiosk
+	</select>
+	<select id="getKiosk" parameterType="int" resultType="kioskDto">
+		SELECT *
+		FROM kiosk
+		WHERE id=#{id}
+	</select>
 	<insert id="insert" parameterType="kioskDto">
 		INSERT INTO kiosk
 		(id,location,is_using)
-		VALUES(seq_kiosk_id.NEXTVAL, #{location}, #{isUsing})
+		VALUES(seq_kiosk_id.NEXTVAL, #{location}, #{is_using})
 	</insert>
 </mapper>
