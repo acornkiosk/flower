@@ -20,14 +20,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class MenuController {
 	@Autowired private MenuService service;
+	
+	@GetMapping("/menu/menu_main")
+	public String MainMenu(Model model) { // 메뉴관리 1번, 관리통합페이지 
+		service.getList(model);
+		return "menu/menu_main";
+	}
+	
+	@GetMapping("/menu/insert_form") // 메뉴관리 2번, 메뉴추가페이지 
+	public String insertForm() {
+		
+		return "menu/insert_form";
+	}
+	
+	@PostMapping("/menu/insert") // 메뉴관리 2-1 
+	public String insert(MenuDto dto) {
+		service.addMenu(dto);
+		return "menu/menu_main";
+	}
+	
+	@GetMapping("/menu/update_form") // 메뉴관리 3번, 메뉴수정페이지 
+	public String updateForm(Model model, int id) {
+		service.getData(model, id);
+		return "menu/update_form";
+	}
 
 
-	@PostMapping("/menu/update")
+	@PostMapping("/menu/update") // 메뉴관리 3-1 
 	public String updateMenu(MenuDto dto) {
 		
 		service.updateMenu(dto);
 		
-		return "menu/update";
+		return "menu/update"; // todo : 이것도 redirect 코드로 수정필요 
 	}
 	
 	@GetMapping("/menu/delete")
@@ -37,29 +61,5 @@ public class MenuController {
 		
 		return "menu/delete";
 	}
-
-	
-	@GetMapping("/menu/menu_main")
-	public String MainMenu(Model model) {
-		service.getList(model);
-		return "menu/menu_main";
-	}
-	
-	@GetMapping("/menu/insert_form")
-	public String insertForm() {
-		
-		return "menu/insert_form";
-	}
-	
-	@PostMapping("/menu/insert")
-	public String insert(MenuDto dto) {
-		service.addMenu(dto);
-		return "menu/menu_main";
-	}
-	
-	
-	
-
-	
 	
 }
