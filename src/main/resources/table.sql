@@ -7,7 +7,6 @@ CREATE TABLE kiosk(
 	is_using VARCHAR2(10) CONSTRAINT kiosk_is_using_nn NOT NULL
 );
 
-
 -- 메뉴 관리 DB 생성
 CREATE SEQUENCE menu_seq;
 
@@ -33,7 +32,7 @@ CREATE SEQUENCE seq_user_id;
 CREATE TABLE users (
     id VARCHAR2(100) CONSTRAINT users_id_pk PRIMARY KEY, -- 사용자 아이디
     password VARCHAR2(100) CONSTRAINT users_password_nn NOT NULL, -- 사용자 비밀번호
-    role VARCHAR2(50) CONSTRAINT users_role_nn NOT NULL, -- 역할
+    role VARCHAR2(50) CONSTRAINT users_role_nn NOT NULL -- 역할
 );
 
 DROP TABLE users;
