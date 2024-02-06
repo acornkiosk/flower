@@ -7,13 +7,15 @@ CREATE TABLE kiosk(
 	is_using VARCHAR2(10) CONSTRAINT kiosk_is_using_nn NOT NULL
 );
 
--- 메뉴 관리 DB 생성
+----- 메뉴관리 DB 용(시작) -----
+
 CREATE SEQUENCE menu_seq;
 
 CREATE TABLE menu_info(
  id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL,
  price NUMBER NOT NULL,
+ one_sentence VARCHAR2(100),
  description VARCHAR2(300),
  img_url VARCHAR2(2000),
  is_sold VARCHAR2(50) NOT NULL,
@@ -22,10 +24,13 @@ CREATE TABLE menu_info(
  DROP sequence menu_seq;
  DROP table menu_info;
  
-INSERT INTO menu_info
-  (ID, NAME, PRICE, DESCRIPTION, IMG_URL, IS_SOLD, CATEGORY) 
-VALUES 
-  (menu_seq.nextVal, '꽃', 2000, '예쁜 꽃', NULL, '팜', '한송이');
+ 
+ CREATE TABLE category_list(
+ category VARCHAR2(50) NOT NULL);
+ 
+ 
+----- 메뉴관리 DB 용(끝) -----
+ 
 
 -- 사용자 관리 DB 생성
 CREATE SEQUENCE seq_user_id;

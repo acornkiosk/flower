@@ -7,4 +7,5 @@ public interface MenuService {
 	public void updateMenu(MenuDto dto);
 	public void deleteMenu(int id);
 	public void getList(Model model);
+	public void getData(Model model, int id);
 }

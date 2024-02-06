@@ -10,7 +10,7 @@
 	
 	<update id="update" parameterType="menuDto">
 		UPDATE menu_info
-		SET name=#{name}, price=#{price}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
+		SET name=#{name}, price=#{price}, one_sentence=#{one_sentence}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
 		WHERE id=#{id}
 	</update>
 	
@@ -22,6 +22,17 @@
 	<select id="getList" resultType="menuDto">
 		SELECT id, name, price, description,img_url,is_sold,category
 		FROM menu_info
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="menuDto">
+		SELECT id, name, price, one_sentence, description, img_url, is_sold, category
+		FROM menu_info
+		WHERE id=#{id}
+	</select>
+	
+	<select id="categoryList" resultType="categoryDto">
+		SELECT category
+		FROM category_list
 	</select>
 	
 </mapper>
