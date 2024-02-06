@@ -1,16 +1,12 @@
 
 --키오스크 관리 DB 생성
-DROP TABLE kiosk CASCADE CONSTRAINTS;
-DROP TABLE USERs CASCADE CONSTRAINTS;
-DROP SEQUENCE seq_kiosk_id;
-DROP SEQUENCE seq_user_id;
 CREATE SEQUENCE seq_kiosk_id;
 CREATE TABLE kiosk(
 	id NUMBER CONSTRAINT kiosk_id_pk PRIMARY KEY, -- 키오스크 아이디
 	location VARCHAR2(50) CONSTRAINT kiosk_location_nn NOT NULL, -- 키오스크 위치
 	is_using VARCHAR2(10) CONSTRAINT kiosk_is_using_nn NOT NULL
 );
-<<<<<<< Updated upstream
+
 
 -- 메뉴 관리 DB 생성
 CREATE SEQUENCE menu_seq;
@@ -40,4 +36,6 @@ CREATE TABLE users (
     role VARCHAR2(50) CONSTRAINT users_role_nn NOT NULL, -- 역할
 );
 
+DROP TABLE users;
 
+SELECT * from kiosk;
