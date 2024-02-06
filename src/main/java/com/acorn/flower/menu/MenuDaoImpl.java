@@ -39,6 +39,11 @@ public class MenuDaoImpl implements MenuDao {
 	public MenuDto getData(int id) {
 		return session.selectOne("menu.getData", id);
 	}
+
+	@Override
+	public List<CategoryDto> getDataCategory() {
+		return session.selectList("menu.categoryList");
+	}
     
     
 }

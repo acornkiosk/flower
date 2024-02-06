@@ -45,7 +45,6 @@ public class MenuController {
 		return "menu/update_form";
 	}
 
-
 	@PostMapping("/menu/update") // 메뉴관리 3-1 
 	public String updateMenu(MenuDto dto) {
 		

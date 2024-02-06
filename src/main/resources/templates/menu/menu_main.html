@@ -13,8 +13,8 @@
 			<div class="col-sm-6 col-md-4 col-lg-3" th:each="tmp : ${list}">
 				<div class="card mb-3">
             		<a href="">
-	               		<div class="img-wrapper">
-	                  		<img class="card-img-top" 
+	               		<div class="img-wrapper" style="width: 200px;">
+	                  		<img style="width: 100%;" class="card-img-top" 
 	                  			th:src="@{/upload/images/{name}(name=${tmp.img_url})}" />
 	               		</div>
             		</a>
