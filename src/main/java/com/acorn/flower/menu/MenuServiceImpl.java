@@ -1,12 +1,14 @@
 package com.acorn.flower.menu;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -47,6 +49,13 @@ public class MenuServiceImpl implements MenuService {
 	public void deleteMenu(int id) {
 		menuDao.delete(id);
 		
+	}
+
+	@Override
+	public void getList(Model model) {
+		
+		List<MenuDto> list=menuDao.getList();
+		model.addAttribute("list",list);
 	}
 	
 	
