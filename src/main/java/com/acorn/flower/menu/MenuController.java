@@ -4,6 +4,7 @@ package com.acorn.flower.menu;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +40,8 @@ public class MenuController {
 
 	
 	@GetMapping("/menu/menu_main")
-	public String MainMenu() {
-		
+	public String MainMenu(Model model) {
+		service.getList(model);
 		return "menu/menu_main";
 	}
 	

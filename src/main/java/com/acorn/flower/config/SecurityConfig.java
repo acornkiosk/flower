@@ -20,7 +20,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
 		
-		String[] whiteList= {"/","/login/login_form"};
+		String[] whiteList= {"/","/login/login_form","/api/**", "/menu/**","/upload/**","/test/**"};
 		
 		hs
 		.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 

@@ -4,7 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
+
 
 	@Override
 	public void addUser(UserDto dto) {
