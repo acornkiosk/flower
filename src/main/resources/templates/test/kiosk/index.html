@@ -378,11 +378,18 @@
 											<td th:text="${tmp.id}"></td>
 											<td th:text="${tmp.location}"></td>
 											<th:block>
-												<td th:if="${tmp.is_using == 'true'}">On</td>
-												<td th:if="${tmp.is_using == 'false'}">Off</td>
+												<td>
+													<a class="text-success" th:attr="data-id=${tmp.id}"
+														th:if="${tmp.is_using == 'true'}" href="javascript:"
+														onclick="turnOff(this);">On</a>
+													<a class="text-danger" th:attr="data-id=${tmp.id}"
+														th:if="${tmp.is_using == 'false'}" href="javascript:"
+														onclick="turnOn(this);">Off</a>
+												</td>
 											</th:block>
 											<td>
-												<a class="btn btn-outline-secondary" th:href="@{/kiosk/delete(id=${tmp.id})}">
+												<a class="btn btn-outline-secondary"
+													th:href="@{/kiosk/delete(id=${tmp.id})}">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
 														<path
@@ -489,7 +496,36 @@
 
 	<!-- Page level custom scripts -->
 	<script th:src="@{/js/demo/datatables-demo.js}"></script>
+	<script>
+		//전원 켜기에 대한 처리
+		function turnOn(e) {
+			const id = e.getAttribute("data-id");
+			fetch("[[@{/kiosk/turnOn}]]" + "?id=" + id)
+				.then(res => res.json())
+				.then(data => {
+					if (data.isSuccess) {
+						e.classList.replace('text-danger', 'text-success');
+						e.innerText = 'On';
+						e.setAttribute("onclick", "turnOff(this)");
+					}
+				});
+		}
 
+		//전원 끄기에 대한 처리
+		function turnOff(e) {
+			const id = e.getAttribute("data-id");
+			fetch("[[@{/kiosk/turnOff}]]" + "?id=" + id)
+				.then(res => res.json())
+				.then(data => {
+					if (data.isSuccess) {
+						e.classList.replace('text-success', 'text-danger');
+						e.innerText = 'Off';
+						e.setAttribute("onclick", "turnOn(this)");
+					}
+				});
+		}
+
+	</script>
 </body>
 
 </html>
