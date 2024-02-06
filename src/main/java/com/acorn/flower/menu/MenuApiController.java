@@ -1,5 +1,7 @@
 package com.acorn.flower.menu;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +24,59 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuApiController {
 	@Autowired private MenuService service;
 	
-	//메뉴 메인에 model을 넘기기?
-	@GetMapping("/api/menuList")
-	public String menuList(Model model) {
-		service.getList(model);
-		return "ok";
+	
+	//id 값으로 Menu(하나,Dto)를 가져오는 api
+	@GetMapping("/api/menu/{id}")
+	public Map<String,Object> getMenu(@PathVariable int id){
+		Map<String,Object> result= new HashMap<String,Object>();
+		Map<String, Object> dataMap = service.getData(id);
+		MenuDto dto = (MenuDto)dataMap.get("dto");
+		if(dto!=null) {
+			result.put("isSuccess", true);
+			result.put("dto",dto);
+		}else {
+			result.put("isSuccess",false);
+			result.put("dto", null);
+		}
+		return result;
 	}
 	
+	
+	
+	//menu의 list를 가져오는 api
+	@GetMapping("/api/menu/list")
+	public Map<String,Object> getMenuList() {
+		Map<String,Object> result= new HashMap<String,Object>();
+		List<MenuDto> list = service.getList();
+		if(list!=null) {
+			result.put("isSuccess", true);
+			result.put("list",list);
+		}else {
+			result.put("isSuccess",false);
+			result.put("list", null);
+		}
+		return result;
+	}
+	
+	
+	
 	@PostMapping("/api/addMenu")
-	public String addMenu(@RequestBody MenuDto dto) {
-		
+	public Map<String, Object> addMenu(@RequestBody MenuDto dto) {
+		Map<String,Object> result = new HashMap<String, Object>();
 		service.addMenu(dto);
-		return "ok";
+		
+		Map<String, Object> dataMap = service.getData(dto.getId());
+	
+		MenuDto dto2=(MenuDto)dataMap.get("dto");
+		if(dto2 !=null) {
+			result.put("isSuccess", true);
+			result.put("dto", dto2);
+		}else {
+			result.put("isSuccess",false);
+			result.put("dto",null);
+		}
+		
+		return result;
 	}
 	
 	@PostMapping("/api/updateMenu")

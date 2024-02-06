@@ -9,4 +9,5 @@ public interface MenuDao {
 	public List<MenuDto> getList();
 	public MenuDto getData(int id);
 	public List<CategoryDto> getDataCategory();
+
 }

@@ -44,6 +44,8 @@ public class MenuDaoImpl implements MenuDao {
 	public List<CategoryDto> getDataCategory() {
 		return session.selectList("menu.categoryList");
 	}
+	
+
     
     
 }

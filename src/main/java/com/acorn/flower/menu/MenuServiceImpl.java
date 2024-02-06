@@ -1,7 +1,9 @@
 package com.acorn.flower.menu;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -69,22 +71,33 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.delete(id);
 		
 	}
+	
+	@Override
+	public Map<String,Object> getData(int id) {
+		MenuDto dto = menuDao.getData(id);
+		List<CategoryDto> categoryList = menuDao.getDataCategory();
+		Map<String, Object> dataMap= new HashMap<String, Object>();
+		dataMap.put("dto",dto);
+		dataMap.put("list", categoryList);
+		return dataMap;  
+	}				 
+
 
 	@Override
-	public void getList(Model model) {
+	public List<MenuDto> getList() {
 		
-		List<MenuDto> list=menuDao.getList();
-		model.addAttribute("list",list);
+		return menuDao.getList();
+		
 	}
-	
+	/* 위에 apiController 때문에 map으로 바꿔놨습니다.
 	@Override
 	public void getData(Model model, int id) {
 		MenuDto dto = menuDao.getData(id);
-		List<CategoryDto> categoryList = menuDao.getDataCategory();
+		
 		
 		model.addAttribute("dto", dto); // update_form.html 에서 Thymeleaf 로 불러오기 
 		model.addAttribute("list", categoryList); // update_form.html 에서 Thymeleaf 로 불러오기 
-	}
+	}*/
 	
 	
 }
