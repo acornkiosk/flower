@@ -18,15 +18,19 @@ public class KioskController {
 	public String kioskIndex(Model model) {
 		List<KioskDto> list = service.getKioskList();
 		model.addAttribute("list", list);
-		System.out.println(list);
 		return "test/kiosk/index";
 	}
 	
 	@PostMapping("/kiosk/add")
 	public String kioskAdd(KioskDto dto) {
 		dto.setIs_using("false");
-		System.out.println(dto);
 		service.addKiosk(dto);
+		return "redirect:/kiosk/index";
+	}
+	
+	@GetMapping("/kiosk/delete")
+	public String kioskDelete(int id) {
+		service.deleteKiosk(id);
 		return "redirect:/kiosk/index";
 	}
 }
