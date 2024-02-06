@@ -28,6 +28,14 @@ public class MenuController {
 		
 		return "menu/update";
 	}
+	
+	@GetMapping("/menu/delete")
+	public String deleteMenu(int id) {
+		
+		service.deleteMenu(id);
+		
+		return "menu/delete";
+	}
 
 	
 	@GetMapping("/menu/menu_main")
@@ -52,11 +60,5 @@ public class MenuController {
 	
 
 	
-	@GetMapping("/menu/delete")
-	public String deleteMenu(int id) {
-		
-		service.deleteMenu(id);
-		
-		return "menu/delete";
-	}
+	
 }

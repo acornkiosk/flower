@@ -10,7 +10,7 @@
 <body>
 	<div class="container">
 		<h1>메뉴등록 페이지</h1>
-		<form th:action="@{/menu/insert}" method="post">
+		<form th:action="@{/menu/insert}" method="post" enctype="multipart/form-data">
 			<div class="mb-3">
 				<label class="form-label" for="">메뉴이름</label>
 				<input class="form-control" type="text" name="name" />	
@@ -24,8 +24,9 @@
 				<input class="form-control" type="text" name="description" />	
 			</div>
 			<div class="mb-3">
-				<label class="form-label" for="">이미지파일</label>
-				<input class="form-control" type="file" name="img_url" />	
+				<label class="form-label" for="image">이미지파일</label>
+				<input class="form-control" type="file" name="images" accept="image/*"  />
+
 			</div>
 			
 			<div class="mb-3">

@@ -1,6 +1,7 @@
 package com.acorn.flower.menu;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,4 +20,5 @@ public class MenuDto {
 	private String img_url;
 	private String is_sold;
 	private String category;
+	private MultipartFile image; //이미지 파일 업로드 처리를 위한 필드
 }
