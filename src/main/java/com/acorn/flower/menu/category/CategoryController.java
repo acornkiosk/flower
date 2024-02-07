@@ -17,6 +17,6 @@ public class CategoryController {
 	@PostMapping("/menu/category/insert")
 	public String insert(CategoryDto dto) {
 		service.addCategory(dto);
-		return "redirect:/menu/menu_main";
+		return "";
 	}
 }
