@@ -10,6 +10,6 @@ public interface MenuService {
 	public void updateMenu(MenuDto dto);
 	public void deleteMenu(int id);
 	public List<MenuDto> getList();
-	public Map<String, Object> getData(int id); // ApiController.java 용 
+	// public Map<String, Object> getData(int id); // ApiController.java 용 
 	public void getData(Model model, int id); // MenuController.java 용 
 }
