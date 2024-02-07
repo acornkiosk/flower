@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.acorn.flower.menu.category.CategoryDto;
 import com.acorn.flower.menu.category.CategoryService;
 
 /**
@@ -35,8 +36,8 @@ public class MenuController {
 	/** 1.관리통합페이지 */
 	@GetMapping("/menu/menu_main")
 	public String MainMenu(Model model) {
-	List<MenuDto> list = menuService.getList();
-	model.addAttribute("list", list);
+	List<MenuDto> menuList = menuService.getList();
+	model.addAttribute("list", menuList);
 		return "menu/menu_main";
 	}
 	
@@ -49,17 +50,20 @@ public class MenuController {
 	/** 3.메뉴수정페이지 */
 	@GetMapping("/menu/update_form")
 	public String updateForm(Model model, int id) {
-		menuService.getData(model, id);
-		categoryService.getList(model);
+		MenuDto dto = menuService.getData(id);
+		// List<CategoryDto> categoryList = categoryService.getList();
+		model.addAttribute("dto", dto);
+		// model.addAttribute("list", categoryList);
 		return "menu/update_form";
-		
 	}
 	
 	/** 페이지 이동 4번.메뉴상세페이지 */
 	@GetMapping("/menu/detail")
 	public String detail(Model model,int id) {
-		menuService.getData(model, id);
-		categoryService.getList(model);
+		MenuDto dto = menuService.getData(id);
+		// List<CategoryDto> categoryList = categoryService.getList();
+		model.addAttribute("dto", dto);
+		// model.addAttribute("list", categoryList);
 		return "menu/detail";
 	}
 
@@ -70,9 +74,7 @@ public class MenuController {
 		return "redirect:/menu/menu_main";
 	}
 
-	/** 데이터 조작 : 수정 
-	 * todo : 이것도 redirect 코드로 수정필요 
-	 * */
+	/** 데이터 조작 : 수정 */
 	@PostMapping("/menu/update")
 	public String updateMenu(MenuDto dto) {
 		menuService.updateMenu(dto);

@@ -1,8 +1,10 @@
 package com.acorn.flower.menu.category;
 
+import java.util.List;
+
 import org.springframework.ui.Model;
 
 public interface CategoryService {
-	public void getList(Model model);
+	public List<CategoryDto> getList();
 	public void addCategory(CategoryDto dto);
 }
