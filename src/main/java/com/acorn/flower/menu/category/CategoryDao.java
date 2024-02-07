@@ -1,5 +1,7 @@
 package com.acorn.flower.menu.category;
 
-public interface CategoryDao {
+import java.util.List;
 
+public interface CategoryDao {
+	public List<CategoryDto> getList();
 }

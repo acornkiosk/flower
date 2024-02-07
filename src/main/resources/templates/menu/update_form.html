@@ -23,9 +23,9 @@
 			<div class="mb-3">
 				<label class="form-label" for="category">카테고리</label>
 				<select name="category">
-					<optgroup label="선택" th:each="tmp: ${list}">
-						<option th:text="${tmp.category}"></option>
-					</optgroup>
+					<span th:each="tmp: ${list}">
+						<option th:text="${tmp.category}" th:checked="${tmp.category == dto.category}"></option>
+					</span>
 				</select>
 			</div>
 			<div class="mb-3">

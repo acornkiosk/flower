@@ -1,5 +1,7 @@
 package com.acorn.flower.menu.category;
 
-public interface CategoryService {
+import org.springframework.ui.Model;
 
+public interface CategoryService {
+	public void getList(Model model);
 }

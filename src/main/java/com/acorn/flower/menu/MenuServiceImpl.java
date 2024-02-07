@@ -14,6 +14,16 @@ import org.springframework.ui.Model;
 
 import com.acorn.flower.menu.category.CategoryDto;
 
+/**
+ * Thymeleaf 용 메뉴관리 Controller와 React 리팩토링 대비 API Controller 를 동시에 처리하는 서비스입니다. 
+ * <br>
+ * 의존하는 Dao 에서 응답받은 데이터를 Model 객체에 위임하는 역할을 맡습니다.
+ * <br>
+ * @author "이승우", "김대원"
+ * @since 2024-02-07
+ * @version 0.1 / 프로젝트 버전
+ */
+
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired private MenuDao menuDao;
@@ -22,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
 	@Value("${file.location}") 
 	private String fileLocation;
 
-	/** 메뉴등록 코드 */
+	/** Thymeleaf 용 : 메뉴등록 코드 */
 	@Override
 	public void addMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
@@ -40,10 +50,11 @@ public class MenuServiceImpl implements MenuService {
 		}
 		dto.setImg_url(saveFileName);
 		menuDao.insert(dto);
-		
 	}
 
-	/** 메뉴수정 코드 */
+	/**  Thymeleaf 용 : 메뉴수정 코드 
+	 * todo : else 문 작성 필요성 판단하기 
+	 * */
 	@Override
 	public void updateMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
@@ -69,39 +80,39 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.update(dto);
 	}
 
-	/** 메뉴삭제 코드 */
+	/** Thymeleaf 용 : 메뉴삭제 코드 */
 	@Override
 	public void deleteMenu(int id) {
 		menuDao.delete(id);
 	}
 	
-	
-	@Override // ApiController.java 용 
-	public Map<String,Object> getData(int id) {
-		MenuDto dto = menuDao.getData(id);
-		List<CategoryDto> categoryList = menuDao.getDataCategory();
-		Map<String, Object> dataMap= new HashMap<String, Object>();
-		dataMap.put("dto",dto);
-		dataMap.put("list", categoryList);
-		return dataMap;  
-	}
-	
-	
-	@Override // MenuController.java 용 
+	/** Thymeleaf 용 : 메뉴 가져오기 */
+	@Override
 	public void getData(Model model, int id) {
 		MenuDto dto = menuDao.getData(id);
-		List<CategoryDto> categoryList = menuDao.getDataCategory();
-		
-		model.addAttribute("dto", dto); // update_form.html 에서 Thymeleaf 로 불러오기 
-		model.addAttribute("list", categoryList); // update_form.html 에서 Thymeleaf 로 불러오기 
+		model.addAttribute("dto", dto);
 	}
 
+	/** Thymeleaf 용 : 메뉴 모두 가져오기 */
 	@Override
-	public List<MenuDto> getList() {
-		
-		return menuDao.getList();
-		
+	public void getList(Model model) {
+		List<MenuDto> list = menuDao.getList();
+		model.addAttribute("list",list);
 	}
+	
+	
+//	@Override // ApiController.java 용 
+//	public Map<String,Object> getData(int id) {
+//		MenuDto dto = menuDao.getData(id);
+//		List<CategoryDto> categoryList = menuDao.getDataCategory();
+//		Map<String, Object> dataMap= new HashMap<String, Object>();
+//		dataMap.put("dto",dto);
+//		dataMap.put("list", categoryList);
+//		return dataMap;  
+//	}
+	
+	
+
 	
 	
 }

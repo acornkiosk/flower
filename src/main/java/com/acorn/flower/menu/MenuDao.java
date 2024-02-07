@@ -10,6 +10,4 @@ public interface MenuDao {
 	public void delete(int id);
 	public List<MenuDto> getList();
 	public MenuDto getData(int id);
-	public List<CategoryDto> getDataCategory();
-
 }
