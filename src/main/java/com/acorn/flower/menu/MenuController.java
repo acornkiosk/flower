@@ -59,13 +59,13 @@ public class MenuController {
 		return "menu/update_form";
 	}
 	
-	/** 페이지 이동 4번.메뉴상세페이지 */
+	/** 4번.메뉴상세페이지 */
 	@GetMapping("/menu/detail")
 	public String detail(Model model,int id) {
 		MenuDto dto = menuService.getData(id);
-		// List<CategoryDto> categoryList = categoryService.getList();
+		List<CategoryDto> categoryList = categoryService.getList();
 		model.addAttribute("dto", dto);
-		// model.addAttribute("list", categoryList);
+		model.addAttribute("list", categoryList);
 		return "menu/detail";
 	}
 
