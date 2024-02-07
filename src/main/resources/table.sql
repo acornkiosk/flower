@@ -43,3 +43,10 @@ CREATE TABLE users (
 DROP TABLE users;
 
 SELECT * from kiosk;
+
+
+
+-- 로그인 관리 DB 생성
+CREATE TABLE login_tb(
+user_id varchar2(100) primary key, user_pwd varchar2(100),rank varchar2(50) check (rank in('super','ceo','emp')) 
+);

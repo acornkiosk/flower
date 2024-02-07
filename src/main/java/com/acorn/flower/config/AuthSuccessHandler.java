@@ -2,12 +2,15 @@ package com.acorn.flower.config;
 
 import java.io.IOException;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+
+import com.acorn.flower.login.LoginDao;
+import com.acorn.flower.login.LoginDto;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -16,6 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
+	
+	
 	// 1.요청캐쉬 객체를 직접 생성해서
 	private RequestCache requestCache = new HttpSessionRequestCache();
 

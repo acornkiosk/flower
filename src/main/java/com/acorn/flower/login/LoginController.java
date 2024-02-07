@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
+	@GetMapping("/login/required_loginform")
+	public String requriedLoginForm() {
+		return "login/required_loginform";
+	}
+	
 	//로그인 폼 요청
 	@GetMapping("/login/login_form")
 	public String login_form() {
