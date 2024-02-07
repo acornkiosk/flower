@@ -24,6 +24,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuApiController {
 	@Autowired private MenuService service;
 	
+	//  =========== 페이지 전환 API controller (시작) ===========
+	
+	//  =========== 페이지 전환 API controller (종료) ===========
+	
+	
+	//  =========== 데이터 요청 API controller (시작) ===========
+	
+	//  =========== 데이터 요청 API controller (종료) ===========
+	
 	
 	//id 값으로 Menu(하나,Dto)를 가져오는 api
 	@GetMapping("/api/menu/{id}")
@@ -41,7 +50,8 @@ public class MenuApiController {
 		return result;
 	}
 	
-	
+	//map명령어 사용이유 : boolean반환값 받기 위해
+	//dataMap : 기존코드에 Model 객체가 존재했음, 근데 api 전달과정엣 문제있
 	
 	//menu의 list를 가져오는 api
 	@GetMapping("/api/menu/list")
@@ -95,5 +105,13 @@ public class MenuApiController {
 		return "ok";
 	}
 	
+	@GetMapping("/menu/update_form") // 메뉴관리 3번, 메뉴수정페이지 
+	public String updateForm(Model model, int id) {
+		Map<String, Object> dataMap = service.getData(id);
+		model.addAttribute("list",dataMap.get("list"));
+		model.addAttribute("dto",dataMap.get("dto"));
+		return "menu/update_form";
+		
+	}
 	
 }
