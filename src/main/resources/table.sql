@@ -24,9 +24,16 @@ CREATE TABLE menu_info(
  DROP sequence menu_seq;
  DROP table menu_info;
  
+ CREATE SEQUENCE category_seq;
  
- CREATE TABLE category_list(
+ CREATE TABLE category_info(
+ id NUMBER PRIMARY KEY NOT NULL,
  category VARCHAR2(50) NOT NULL);
+ 
+ 
+ DROP sequence category_seq;
+ DROP table menu_info;
+ 
  
  
 ----- 메뉴관리 DB 용(끝) -----
