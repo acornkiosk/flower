@@ -9,9 +9,10 @@
 	</insert>
 
 	<select id="getList" resultType="categoryDto">
-		SELECT category
-		FROM
-		category_info
+		SELECT id,category
+		FROM category_info
 	</select>
+
+
 
 </mapper>
