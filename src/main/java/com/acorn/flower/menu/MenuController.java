@@ -87,7 +87,7 @@ public class MenuController {
 	@GetMapping("/menu/delete")
 	public String deleteMenu(int id) {
 		menuService.deleteMenu(id);
-		return "menu/delete";
+		return "redirect:/menu/menu_main";
 	}
 	
 } // class 

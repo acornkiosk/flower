@@ -12,6 +12,10 @@
 		SELECT id,category
 		FROM category_info
 	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM category_info
+		WHERE id=#{id}
+	</delete>
 
 
 

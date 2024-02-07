@@ -10,6 +10,7 @@
 <body>
 	<div class="container">
 		<h1>카테고리 등록 페이지</h1>
+		<ul id="categoryList" class="list-group mt-3"></ul>
 		<form th:action="@{/menu/category/insert}" method="post">
 			
 			<div class="mb-3">
@@ -21,5 +22,59 @@
 			
 		</form>
 	</div>
+	<script>
+		fetch("[[@{/}]]menu/category/getCategoryList")
+		.then(res=>res.json()) // JSON 형식으로 파싱
+		.then(data=>{
+			console.log(data);
+			const categoryList = document.getElementById('categoryList'); // 카테고리 리스트를 표시할 요소 선택
+			
+			// 카테고리 데이터를 반복하여 리스트 아이템으로 추가
+			data.forEach(category => {
+			    const listItem = document.createElement('li'); 
+			    listItem.classList.add('list-group-item'); 
+			    
+			    // 카테고리 이름을 표시하는 span 요소 생성
+			    const categoryNameSpan = document.createElement('span');
+			    categoryNameSpan.textContent = category.category;
+			    listItem.appendChild(categoryNameSpan); 
+			    
+			    // 삭제 버튼 생성
+			    const deleteButton = document.createElement('button');
+			    deleteButton.textContent = '삭제';
+			    deleteButton.classList.add('btn', 'btn-danger', 'ms-2');
+			    
+			    // 데이터 속성을 사용하여 카테고리 ID 저장
+			    deleteButton.dataset.categoryId = category.id;
+			    
+			    deleteButton.addEventListener('click', () => {
+					
+			        const categoryId = deleteButton.dataset.categoryId; 
+			        console.log(categoryId)		       
+			        deleteCategory(categoryId);  
+			        listItem.remove(); // 해당 리스트 아이템 제거
+			    });
+			    listItem.appendChild(deleteButton); // 삭제 버튼을 리스트 아이템에 추가
+			    
+			    categoryList.appendChild(listItem); // 리스트에 아이템 추가
+			
+			});
+			    function deleteCategory(categoryId) {
+		   
+				    fetch(`[[@{/}]]menu/category/delete/${categoryId}`)
+				    .then(res=>res.json())
+				    .then(data=>{
+						console.log(data);
+					})
+				    .catch(error => console.error('Error ', error));
+				}
+		})
+		.catch(error => console.error('Error ', error));
+		
+		
+		
+		
+	
+	</script>
 </body>
 </html>

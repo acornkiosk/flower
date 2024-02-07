@@ -7,4 +7,5 @@ import org.springframework.ui.Model;
 public interface CategoryService {
 	public List<CategoryDto> getList();
 	public void addCategory(CategoryDto dto);
+	public void deleteCategory(int id);
 }
