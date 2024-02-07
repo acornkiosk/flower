@@ -374,7 +374,7 @@
 													전원
 													<div>
 														전체 전원
-														<a class="btn btn-success" th:href="@{/kiosk/turnOnAll}">
+														<a class="btn btn-success" th:href="@{/super/kiosk/turnOnAll}">
 															<svg xmlns="http://www.w3.org/2000/svg" width="16"
 																height="16" fill="currentColor" class="bi bi-power"
 																viewBox="0 0 16 16">
@@ -385,7 +385,7 @@
 															</svg>
 															turnOn
 														</a>
-														<a class="btn btn-danger" th:href="@{/kiosk/turnOffAll}">
+														<a class="btn btn-danger" th:href="@{/super/kiosk/turnOffAll}">
 															<svg xmlns="http://www.w3.org/2000/svg" width="16"
 																height="16" fill="currentColor" class="bi bi-power"
 																viewBox="0 0 16 16">
@@ -418,7 +418,7 @@
 											</th:block>
 											<td>
 												<a class="btn btn-outline-secondary"
-													th:href="@{/kiosk/delete(id=${tmp.id})}">
+													th:href="@{/super/kiosk/delete(id=${tmp.id})}">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
 														<path
@@ -455,7 +455,7 @@
 								aria-label="Close">X</button>
 						</div>
 						<div class="modal-body container">
-							<form th:action="@{/kiosk/add}" method="post">
+							<form th:action="@{/super/kiosk/add}" method="post">
 								<label class="form-label" for="location">위치</label>
 								<input type="text" name="location" class="form-control" placeholder="현관문 앞 왼쪽..." />
 								<div class="modal-footer">
@@ -529,7 +529,7 @@
 		//전원 켜기에 대한 처리
 		function turnOn(e) {
 			const id = e.getAttribute("data-id");
-			fetch("[[@{/kiosk/turnOn}]]" + "?id=" + id)
+			fetch("[[@{/super/kiosk/turnOn}]]" + "?id=" + id)
 				.then(res => res.json())
 				.then(data => {
 					if (data.isSuccess) {
@@ -543,7 +543,7 @@
 		//전원 끄기에 대한 처리
 		function turnOff(e) {
 			const id = e.getAttribute("data-id");
-			fetch("[[@{/kiosk/turnOff}]]" + "?id=" + id)
+			fetch("[[@{/super/kiosk/turnOff}]]" + "?id=" + id)
 				.then(res => res.json())
 				.then(data => {
 					if (data.isSuccess) {

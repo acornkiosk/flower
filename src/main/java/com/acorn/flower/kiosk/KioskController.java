@@ -18,28 +18,29 @@ public class KioskController {
 	@Autowired
 	private KioskService service;
 
-	@GetMapping("/kiosk/index")
+	@GetMapping("/super/kiosk/index")
 	public String kioskIndex(Model model) {
 		List<KioskDto> list = service.getKioskList();
 		model.addAttribute("list", list);
 		return "test/kiosk/index";
+		//todo 나중에 경로 수정해야함
 	}
 
-	@PostMapping("/kiosk/add")
+	@PostMapping("/super/kiosk/add")
 	public String kioskAdd(KioskDto dto) {
 		dto.setIs_using("false");
 		service.addKiosk(dto);
-		return "redirect:/kiosk/index";
+		return "redirect:/super/kiosk/index";
 	}
 
-	@GetMapping("/kiosk/delete")
+	@GetMapping("/super/kiosk/delete")
 	public String kioskDelete(int id) {
 		service.deleteKiosk(id);
-		return "redirect:/kiosk/index";
+		return "redirect:/super/kiosk/index";
 	}
 
 	@ResponseBody
-	@GetMapping("/kiosk/turnOn")
+	@GetMapping("/super/kiosk/turnOn")
 	public Map<String, Object> kioskTurnOn(int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		service.turnOn(id);
@@ -62,7 +63,7 @@ public class KioskController {
 	}
 
 	@ResponseBody
-	@GetMapping("/kiosk/turnOff")
+	@GetMapping("/super/kiosk/turnOff")
 	public Map<String, Object> kioskTurnOff(int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		service.turnOff(id);
@@ -83,16 +84,16 @@ public class KioskController {
 		return result;
 	}
 
-	@GetMapping("/kiosk/turnOnAll")
+	@GetMapping("/super/kiosk/turnOnAll")
 	public String kioskTurnOnAll() {
 		service.turnOnAll();
-		return "redirect:/kiosk/index";
+		return "redirect:/super/kiosk/index";
 	}
 	
-	@GetMapping("/kiosk/turnOffAll")
+	@GetMapping("/super/kiosk/turnOffAll")
 	public String kioskTurnOffAll() {
 		service.turnOffAll();
-		return "redirect:/kiosk/index";
+		return "redirect:/super/kiosk/index";
 	}
 
 }
