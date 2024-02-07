@@ -10,7 +10,8 @@
 
 	<select id="getList" resultType="categoryDto">
 		SELECT category
-		FROM category_info
+		FROM
+		category_info
 	</select>
 
 </mapper>
