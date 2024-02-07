@@ -21,25 +21,26 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
 		
 		String[] whiteList= {"/",
-				"/login/login_form",
+				"/login/login_form","/login/fail",
 				"/api/**", 
 				"/menu/**",
 				"/upload/**",
 				"/test/**", "/test/kiosk/**","/css/**","/img/**","/js/**","/scss/**","/vendor/**",
 				"/kiosk/**","/kiosk/delete"};
+
 		
 		hs.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 
 		hs.authorizeHttpRequests(config->
 			config
 			.requestMatchers(whiteList).permitAll() //whiteList 요청은 로그인과 상관없이 모두 허용
-			.requestMatchers("/super/**").hasRole("SUPER") //슈퍼계정
-			.requestMatchers("/owner/**").hasAnyRole("CEO")  //사장
-			.requestMatchers("/user/**").hasAnyRole("CEO","EMP","SUPER")  //사장+사원
+			.requestMatchers("/super/**").hasRole("super") //슈퍼계정
+			.requestMatchers("/owner/**").hasAnyRole("ceo","super")  //사장
+			.requestMatchers("/user/**").hasAnyRole("ceo","emp","super")  //사장+사원
 			.anyRequest().authenticated()
 		)
 		.formLogin(config->
 			config
-			.loginPage("/login/login_form")
+			.loginPage("/login/required_loginform")
 			.loginProcessingUrl("/login/login") //security가 경로를 알 수 있게 경로 처리해준다.
 			.usernameParameter("user_id")
 			.passwordParameter("user_pwd")
