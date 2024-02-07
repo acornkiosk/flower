@@ -95,5 +95,12 @@ public class KioskController {
 		service.turnOffAll();
 		return "redirect:/super/kiosk/index";
 	}
+	
+	@PostMapping("/super/kiosk/updateLocation")
+	public String kioskUpdateLocation(KioskDto dto) {
+		System.out.println(dto);
+		service.updateLocation(dto);
+		return "redirect:/super/kiosk/index";
+	}
 
 }
