@@ -18,6 +18,12 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public void addCategory(CategoryDto dto) {
 		categoryDao.insert(dto);
+	}
+
+	@Override
+	public void deleteCategory(int id) {
+		categoryDao.delete(id);
+		
 	};
 
 };

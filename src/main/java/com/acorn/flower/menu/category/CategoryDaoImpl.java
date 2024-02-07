@@ -23,6 +23,12 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 	}
 
+	@Override
+	public void delete(int id) {
+		session.delete("category.delete",id);
+		
+	}
+
 	
 	
 }
