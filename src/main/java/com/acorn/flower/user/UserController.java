@@ -1,10 +1,14 @@
 package com.acorn.flower.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,18 +25,27 @@ public class UserController {
 	private UserService service;
 	
 	@PostMapping("/api/user/insert")
-	public ResponseEntity<String> UserInset(@RequestBody UserDto dto){
-		service.userInsert(dto);
+	public Map<String, Object> insertUser(@RequestBody UserDto dto){
+		Map<String, Object> result = new HashMap<String, Object>();
+		service.insertUser(dto);
 		UserDto dto2 = service.getUser(dto.getId());
-		return ResponseEntity.ok("id"+ " 님의 회원가입이 성공적으로 완료되었습니다.");
+		if(dto2 != null) {
+			result.put("isSuccess", true);
+			result.put("dto", dto2);
+		}else {
+			result.put("isSuccess", false);
+			result.put("dto", null);
+		}
+		
+		return result;
 	}
 	
-	@PutMapping("/api/user/update")
-	public Map<String, Object> userUpdate(@RequestBody UserDto dto) {
-		Map<String, Object> result = new HashMap<String, Object>();
-//		service.userUpdate(dto);
-		UserDto dto2 = service.getUser(dto.getPassword());
 
+	@PostMapping("/api/user/update") 
+	public Map<String, Object> updateUser(@RequestBody UserDto dto) { 
+		Map<String, Object> result = new HashMap<String, Object>();
+		service.updateUser(dto);
+		UserDto dto2 = service.getUser(dto.getId());
 		if(dto2 != null) {
 			result.put("isSuccess", true);
 			result.put("dto", dto2);
@@ -44,9 +57,31 @@ public class UserController {
 	}
 
 	@DeleteMapping("/api/user/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable String id) {
-
-		return ResponseEntity.ok("User with ID " + id + " has been deleted successfully.");
-
+	public Map<String, Object> deleteUser(@PathVariable String id) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		service.deleteUser(id);
+		UserDto dto = service.getUser(id);
+		if(dto == null) {
+			result.put("isSuccess", true);
+		}else {
+			result.put("isSuccess", false);
+		}
+		return result;
 	}
+	
+	@GetMapping("/api/user/list")
+	public Map<String, Object> getUserList(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<UserDto> list = service.getUserList();
+		if(list != null) {
+			result.put("isSuccess", true);
+			result.put("list", list);
+		}else {
+			result.put("isSuccess", false);
+			result.put("list", null);
+		}
+		
+		return result;
+	}
+
 }

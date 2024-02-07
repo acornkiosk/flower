@@ -35,7 +35,8 @@ public class MenuController {
 	/** 1.관리통합페이지 */
 	@GetMapping("/menu/menu_main")
 	public String MainMenu(Model model) {
-		menuService.getList(model);
+	List<MenuDto> list = menuService.getList();
+	model.addAttribute("list", list);
 		return "menu/menu_main";
 	}
 	

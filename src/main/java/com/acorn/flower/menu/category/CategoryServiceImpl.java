@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
+
 	
 	@Autowired private CategoryDao categoryDao;
 	
@@ -16,6 +17,12 @@ public class CategoryServiceImpl implements CategoryService{
 	public void getList(Model model) {
 		List<CategoryDto> categoryList = categoryDao.getList();
 		model.addAttribute("list", categoryList);
-	}
+	};
+	
+	@Override
+	public void addCategory(CategoryDto dto) {
+		
+		categoryDao.insert(dto);
+	};
 
-}
+};

@@ -93,11 +93,10 @@ public class MenuServiceImpl implements MenuService {
 		model.addAttribute("dto", dto);
 	}
 
-	/** Thymeleaf 용 : 메뉴 모두 가져오기 */
+	/** 메뉴 모두 가져오기 */
 	@Override
-	public void getList(Model model) {
-		List<MenuDto> list = menuDao.getList();
-		model.addAttribute("list",list);
+	public List<MenuDto> getList() {
+		return menuDao.getList();
 	}
 	
 	

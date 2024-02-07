@@ -16,5 +16,11 @@ public class CategoryDaoImpl implements CategoryDao {
 	public List<CategoryDto> getList() {
 		return session.selectList("category.getList");
 	}
+
+	@Override
+	public void insert(CategoryDto dto) {
+		session.insert("category.insert",dto);
+		
+	}
 	
 }

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MenuApiController {
-	@Autowired private MenuService service;
+//	@Autowired private MenuService service;
 //	
 //	//  =========== 페이지 전환 API controller (시작) ===========
 //	

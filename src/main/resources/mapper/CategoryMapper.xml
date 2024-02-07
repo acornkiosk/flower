@@ -5,7 +5,7 @@
 	<insert id="insert" parameterType="categoryDto">
 		INSERT INTO category_info
 		(id, category)
-		VALUES(menu_seq.NEXTVAL,#{name},)
+		VALUES(category_seq.NEXTVAL,#{category})
 	</insert>
 
 	<select id="getList" resultType="categoryDto">
