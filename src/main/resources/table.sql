@@ -32,7 +32,7 @@ CREATE TABLE menu_info(
  
  
  DROP sequence category_seq;
- DROP table menu_info;
+ DROP table category_info;
  
  
  
