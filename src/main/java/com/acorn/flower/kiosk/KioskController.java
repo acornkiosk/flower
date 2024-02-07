@@ -17,27 +17,27 @@ public class KioskController {
 
 	@Autowired
 	private KioskService service;
-	
+
 	@GetMapping("/kiosk/index")
 	public String kioskIndex(Model model) {
 		List<KioskDto> list = service.getKioskList();
 		model.addAttribute("list", list);
 		return "test/kiosk/index";
 	}
-	
+
 	@PostMapping("/kiosk/add")
 	public String kioskAdd(KioskDto dto) {
 		dto.setIs_using("false");
 		service.addKiosk(dto);
 		return "redirect:/kiosk/index";
 	}
-	
+
 	@GetMapping("/kiosk/delete")
 	public String kioskDelete(int id) {
 		service.deleteKiosk(id);
 		return "redirect:/kiosk/index";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/kiosk/turnOn")
 	public Map<String, Object> kioskTurnOn(int id) {
@@ -60,7 +60,7 @@ public class KioskController {
 		return result;
 
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/kiosk/turnOff")
 	public Map<String, Object> kioskTurnOff(int id) {
@@ -82,5 +82,17 @@ public class KioskController {
 
 		return result;
 	}
+
+	@GetMapping("/kiosk/turnOnAll")
+	public String kioskTurnOnAll() {
+		service.turnOnAll();
+		return "redirect:/kiosk/index";
+	}
 	
+	@GetMapping("/kiosk/turnOffAll")
+	public String kioskTurnOffAll() {
+		service.turnOffAll();
+		return "redirect:/kiosk/index";
+	}
+
 }
