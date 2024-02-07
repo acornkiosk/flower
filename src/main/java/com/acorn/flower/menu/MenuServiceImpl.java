@@ -80,17 +80,16 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.update(dto);
 	}
 
-	/** Thymeleaf 용 : 메뉴삭제 코드 */
+	/** 메뉴삭제 코드 */
 	@Override
 	public void deleteMenu(int id) {
 		menuDao.delete(id);
 	}
 	
-	/** Thymeleaf 용 : 메뉴 가져오기 */
+	/** 메뉴 가져오기 */
 	@Override
-	public void getData(Model model, int id) {
-		MenuDto dto = menuDao.getData(id);
-		model.addAttribute("dto", dto);
+	public MenuDto getData(int id) {
+		return menuDao.getData(id);
 	}
 
 	/** 메뉴 모두 가져오기 */

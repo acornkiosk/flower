@@ -10,16 +10,13 @@ import org.springframework.ui.Model;
 public class CategoryServiceImpl implements CategoryService{
 	@Autowired private CategoryDao categoryDao;
 	
-	/** MenuController 에도 요청이 오는 메서드입니다. */
 	@Override
-	public void getList(Model model) {
-		List<CategoryDto> categoryList = categoryDao.getList();
-		model.addAttribute("list", categoryList);
+	public List<CategoryDto>getList() {
+		return categoryDao.getList();
 	};
 	
 	@Override
 	public void addCategory(CategoryDto dto) {
-		
 		categoryDao.insert(dto);
 	};
 
