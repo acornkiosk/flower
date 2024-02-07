@@ -1,4 +1,4 @@
-package com.acorn.flower.menu;
+package com.acorn.flower.menu.category;
 
 import org.apache.ibatis.type.Alias;
 
@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoryDto {
+	private int id;
 	private String category; // 카테고리
 }
