@@ -12,4 +12,5 @@ public interface KioskDao {
 	public void turnOff(int id);
 	public void turnOnAll();
 	public void turnOffAll();
+	public void updateLocation(KioskDto dto);
 }
