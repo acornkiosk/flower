@@ -405,7 +405,33 @@
 									<tbody>
 										<tr th:each="tmp : ${list}">
 											<td th:text="${tmp.id}"></td>
-											<td th:text="${tmp.location}"></td>
+											<td>
+												<a data-toggle="modal" th:data-target="'#locationModal' + ${tmp.id}"  th:text="${tmp.location}"></a>
+												
+												<div class="modal fade" th:id="'locationModal' + ${tmp.id}" tabindex="-1" aria-labelledby="'locationModalLabel'+ ${tmp.id}" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h3 class="modal-title fs-5" th:id="'locationModalLabel'+ ${tmp.id}">[[${tmp.id}]]번 위치 변경하기</h3>
+																<button type="button" class="btn btn-close" data-dismiss="modal"
+																	aria-label="Close">X</button>
+															</div>
+															<div class="modal-body container">
+																<form th:action="@{/super/kiosk/updateLocation}" method="post">
+																	<input type="hidden" name="id" th:value="${tmp.id}"/>
+																	<label class="form-label" for="location">위치</label>
+																	<input type="text" name="location" class="form-control" placeholder="현관문 앞 왼쪽..." th:value="${tmp.location}"/>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+																		<button type="submit" class="btn btn-primary">변경하기</button>
+																	</div>
+																</form>
+															</div>
+									
+														</div>
+													</div>
+												</div>
+											</td>
 											<th:block>
 												<td>
 													<a class="text-success" th:attr="data-id=${tmp.id}"

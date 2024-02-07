@@ -18,4 +18,6 @@ public interface KioskService {
 	public void turnOnAll();
 
 	public void turnOffAll();
+	
+	public void updateLocation(KioskDto dto);
 }
