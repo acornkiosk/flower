@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CategoryController {
 	@Autowired private CategoryService service;
-	
+
 	@GetMapping("/menu/category/insert_form")
 	public String insertForm() {
 		return "menu/category/insert_form";
@@ -17,6 +17,6 @@ public class CategoryController {
 	@PostMapping("/menu/category/insert")
 	public String insert(CategoryDto dto) {
 		service.addCategory(dto);
-		return "";
+		return "menu/menu_main";
 	}
 }

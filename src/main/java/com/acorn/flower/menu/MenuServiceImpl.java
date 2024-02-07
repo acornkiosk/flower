@@ -98,17 +98,7 @@ public class MenuServiceImpl implements MenuService {
 		return menuDao.getList();
 	}
 	
-	
-//	@Override // ApiController.java 용 
-//	public Map<String,Object> getData(int id) {
-//		MenuDto dto = menuDao.getData(id);
-//		List<CategoryDto> categoryList = menuDao.getDataCategory();
-//		Map<String, Object> dataMap= new HashMap<String, Object>();
-//		dataMap.put("dto",dto);
-//		dataMap.put("list", categoryList);
-//		return dataMap;  
-//	}
-	
+
 	
 
 	

@@ -43,7 +43,9 @@ public class MenuController {
 	
 	/** 2.메뉴등록페이지  */
 	@GetMapping("/menu/insert_form")
-	public String insertForm() {
+	public String insertForm(Model model) {
+		List<CategoryDto> categoryList = categoryService.getList();
+		model.addAttribute("list", categoryList);
 		return "menu/insert_form";
 	}
 	
@@ -51,9 +53,9 @@ public class MenuController {
 	@GetMapping("/menu/update_form")
 	public String updateForm(Model model, int id) {
 		MenuDto dto = menuService.getData(id);
-		// List<CategoryDto> categoryList = categoryService.getList();
+		List<CategoryDto> categoryList = categoryService.getList();
 		model.addAttribute("dto", dto);
-		// model.addAttribute("list", categoryList);
+		model.addAttribute("list", categoryList);
 		return "menu/update_form";
 	}
 	

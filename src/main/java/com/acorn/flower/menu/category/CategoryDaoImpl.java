@@ -22,5 +22,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		session.insert("category.insert",dto);
 		
 	}
+
+	
 	
 }
