@@ -45,5 +45,10 @@ public class KioskDaoImpl implements KioskDao {
 		session.update("kiosk.turnOffAll");
 		
 	}
+	@Override
+	public void updateLocation(KioskDto dto) {
+		session.update("kiosk.updateLocation",dto);
+		
+	}
 
 }

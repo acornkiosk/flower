@@ -179,4 +179,25 @@ public class KioskAPIController {
 
 		return result;
 	}
+	
+	@PostMapping("/api/kiosk/updateLocation")
+	public Map<String,Object> updateLocation(@RequestBody KioskDto dto){
+		Map<String, Object> result = new HashMap<String, Object>();
+		service.updateLocation(dto);
+		KioskDto updatedDto = service.getKiosk(dto.getId());
+		
+		if(updatedDto == null) {
+			result.put("isSuccess", false);
+			result.put("dto",null);
+		}else {
+			if(dto.getLocation() == updatedDto.getLocation()) {
+				result.put("isSuccess", false);
+				result.put("dto", updatedDto);
+			}else {
+				result.put("isSuccess",true);
+				result.put("dto", updatedDto);
+			}
+		}
+		return result;
+	}
 }
