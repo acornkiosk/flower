@@ -1,5 +1,8 @@
 package com.acorn.flower.user;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,4 +27,26 @@ public class UserController {
 		return ResponseEntity.ok("id"+ " 님의 회원가입이 성공적으로 완료되었습니다.");
 	}
 	
+	@PutMapping("/api/user/update")
+	public Map<String, Object> userUpdate(@RequestBody UserDto dto) {
+		Map<String, Object> result = new HashMap<String, Object>();
+//		service.userUpdate(dto);
+		UserDto dto2 = service.getUser(dto.getPassword());
+
+		if(dto2 != null) {
+			result.put("isSuccess", true);
+			result.put("dto", dto2);
+		}else {
+			result.put("isSuccess", false);
+			result.put("dto", null);
+		}
+		return result;
+	}
+
+	@DeleteMapping("/api/user/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable String id) {
+
+		return ResponseEntity.ok("User with ID " + id + " has been deleted successfully.");
+
+	}
 }
