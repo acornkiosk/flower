@@ -3,9 +3,9 @@
 <mapper namespace="category">
 
 <insert id="insert" parameterType="categoryDto">
-	INSERT INTO menu_info 
+	INSERT INTO category_info
 	(id, category)
-	VALUES(menu_seq.NEXTVAL,#{name},)
+	VALUES(category_seq.NEXTVAL,#{category})
 </insert>
 
 </mapper>

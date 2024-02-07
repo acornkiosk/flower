@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CategoryDaoImpl implements CategoryDao {
 	@Autowired 
     private SqlSession session;
+
+	@Override
+	public void insert(CategoryDto dto) {
+		session.insert("category.insert",dto);
+		
+	}
 	
 	
 	
