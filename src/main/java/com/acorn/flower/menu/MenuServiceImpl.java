@@ -18,11 +18,11 @@ import com.acorn.flower.menu.category.CategoryDto;
 public class MenuServiceImpl implements MenuService {
 	@Autowired private MenuDao menuDao;
 	
-	//파일을 저장할 위치 
+	/** 파일을 저장할 위치 */
 	@Value("${file.location}") 
 	private String fileLocation;
 
-	
+	/** 메뉴등록 코드 */
 	@Override
 	public void addMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
@@ -43,6 +43,7 @@ public class MenuServiceImpl implements MenuService {
 		
 	}
 
+	/** 메뉴수정 코드 */
 	@Override
 	public void updateMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
@@ -68,13 +69,14 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.update(dto);
 	}
 
+	/** 메뉴삭제 코드 */
 	@Override
 	public void deleteMenu(int id) {
 		menuDao.delete(id);
-		
 	}
 	
-	@Override
+	
+	@Override // ApiController.java 용 
 	public Map<String,Object> getData(int id) {
 		MenuDto dto = menuDao.getData(id);
 		List<CategoryDto> categoryList = menuDao.getDataCategory();
@@ -82,8 +84,17 @@ public class MenuServiceImpl implements MenuService {
 		dataMap.put("dto",dto);
 		dataMap.put("list", categoryList);
 		return dataMap;  
-	}				 
-
+	}
+	
+	
+	@Override // MenuController.java 용 
+	public void getData(Model model, int id) {
+		MenuDto dto = menuDao.getData(id);
+		List<CategoryDto> categoryList = menuDao.getDataCategory();
+		
+		model.addAttribute("dto", dto); // update_form.html 에서 Thymeleaf 로 불러오기 
+		model.addAttribute("list", categoryList); // update_form.html 에서 Thymeleaf 로 불러오기 
+	}
 
 	@Override
 	public List<MenuDto> getList() {
@@ -91,15 +102,6 @@ public class MenuServiceImpl implements MenuService {
 		return menuDao.getList();
 		
 	}
-	/* 위에 apiController 때문에 map으로 바꿔놨습니다.
-	@Override
-	public void getData(Model model, int id) {
-		MenuDto dto = menuDao.getData(id);
-		
-		
-		model.addAttribute("dto", dto); // update_form.html 에서 Thymeleaf 로 불러오기 
-		model.addAttribute("list", categoryList); // update_form.html 에서 Thymeleaf 로 불러오기 
-	}*/
 	
 	
 }

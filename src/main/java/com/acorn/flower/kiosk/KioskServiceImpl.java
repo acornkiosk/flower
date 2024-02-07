@@ -54,4 +54,10 @@ public class KioskServiceImpl implements KioskService {
 
 	}
 
+	@Override
+	public void updateLocation(KioskDto dto) {
+		dao.updateLocation(dto);
+		
+	}
+
 }
