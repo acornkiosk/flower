@@ -44,7 +44,7 @@ CREATE SEQUENCE seq_user_id;
 CREATE TABLE users (
     id VARCHAR2(100) CONSTRAINT users_id_pk PRIMARY KEY, -- 사용자 아이디
     password VARCHAR2(100) CONSTRAINT users_password_nn NOT NULL, -- 사용자 비밀번호
-    rank VARCHAR2(50) CONSTRAINT users_rank_ch check (rank in('super','ceo','emp')) -- 역할
+    rank VARCHAR2(50) CONSTRAINT users_rank_ch check (rank in('super','owner','emp')) -- 역할
 );
 
 DROP TABLE users;
