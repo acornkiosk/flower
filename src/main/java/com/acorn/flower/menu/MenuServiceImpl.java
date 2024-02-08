@@ -59,7 +59,13 @@ public class MenuServiceImpl implements MenuService {
 	public void updateMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
 		//저장할 파일의 이름 겹치지 않는 유일한 문자열로 얻어내기
-		String saveFileName=UUID.randomUUID().toString();
+		String saveFileName="";
+		if(dto.getImg_url()!=null) {
+			saveFileName=dto.getImg_url();
+		}else {
+			saveFileName=UUID.randomUUID().toString();
+		}
+		
 		//저장할 파일의 전체 경로 구성하기
 		String filePath=fileLocation+File.separator+saveFileName;
 		try {

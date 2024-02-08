@@ -3,17 +3,17 @@
 <mapper namespace="category">
 
 	<insert id="insert" parameterType="categoryDto">
-		INSERT INTO category_info
-		(id, category)
-		VALUES(category_seq.NEXTVAL,#{category})
+		INSERT INTO category
+		(id, name)
+		VALUES(category_seq.NEXTVAL,#{name})
 	</insert>
 
 	<select id="getList" resultType="categoryDto">
-		SELECT id,category
-		FROM category_info
+		SELECT id,name
+		FROM category
 	</select>
 	<delete id="delete" parameterType="int">
-		DELETE FROM category_info
+		DELETE FROM category
 		WHERE id=#{id}
 	</delete>
 

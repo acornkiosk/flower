@@ -14,8 +14,8 @@
 		<form th:action="@{/menu/category/insert}" method="post">
 			
 			<div class="mb-3">
-				<label class="form-label" for="category">카테고리 이름</label>
-				<input class="form-control" type="text" name="category" />	
+				<label class="form-label" for="name">카테고리 이름</label>
+				<input class="form-control" type="text" name="name" />	
 			</div>
 									
 			<button type="submit" class="btn btn-primary"> 카테고리 등록하기 </button>
@@ -36,7 +36,7 @@
 			    
 			    // 카테고리 이름을 표시하는 span 요소 생성
 			    const categoryNameSpan = document.createElement('span');
-			    categoryNameSpan.textContent = category.category;
+			    categoryNameSpan.textContent = category.name;
 			    listItem.appendChild(categoryNameSpan); 
 			    
 			    // 삭제 버튼 생성

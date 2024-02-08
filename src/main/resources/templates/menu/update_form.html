@@ -24,7 +24,7 @@
 				<label class="form-label" for="category">카테고리</label>
 				<select name="category">
 					<span th:each="tmp: ${list}">
-						<option th:text="${tmp.category}" th:checked="${tmp.category == dto.category}"></option>
+						<option th:text="${tmp.name}" th:checked="${tmp.name == dto.category}"></option>
 					</span>
 				</select>
 			</div>
@@ -38,7 +38,7 @@
 			</div>
 			<div class="mb-3">
 				<label class="form-label">간략설명</label>
-				<input class="form-control" type="text" name="one_sentence" th:value="${dto.one_sentence}"/>
+				<input class="form-control" type="text" name="summary" th:value="${dto.summary}"/>
 			</div>
 			<div class="mb-3">
 				<label class="form-label">상세설명</label>
@@ -60,6 +60,7 @@
 				<label> <input type="radio" name="is_sold" value="true" th:checked="${dto.is_sold == 'true'}" > 판매</label>
 				<label> <input type="radio" name="is_sold" value="false" th:checked="${dto.is_sold == 'false'}" > 품절 </label>
 			</div>
+			<input type="hidden" name=${dto.img_url} />
 			<button class="btn btn-primary" type="submit">전송!</button>
 		</form>
 	</div>

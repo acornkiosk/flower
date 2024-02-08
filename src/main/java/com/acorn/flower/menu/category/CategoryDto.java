@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoryDto {
 	private int id;
-	private String category; // 카테고리
+	private String name; // 카테고리
 }
