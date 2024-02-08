@@ -105,13 +105,13 @@ public class MenuApiController {
 		return "ok";
 	}
 	
-	@GetMapping("/menu/update_form") // 메뉴관리 3번, 메뉴수정페이지 
-	public String updateForm(Model model, int id) {
-		Map<String, Object> dataMap = service.getData(id);
-		model.addAttribute("list",dataMap.get("list"));
-		model.addAttribute("dto",dataMap.get("dto"));
-		return "menu/update_form";
-		
-	}
+//	@GetMapping("/menu/update_form") // 메뉴관리 3번, 메뉴수정페이지 
+//	public String updateForm(Model model, int id) {
+//		Map<String, Object> dataMap = service.getData(id);
+//		model.addAttribute("list",dataMap.get("list"));
+//		model.addAttribute("dto",dataMap.get("dto"));
+//		return "menu/update_form";
+//		
+//	}
 	
 }
