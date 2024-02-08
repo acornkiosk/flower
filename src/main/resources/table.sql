@@ -24,17 +24,15 @@ CREATE TABLE menu( -- 테이블 title 수정
  DROP sequence menu_seq;
  DROP table menu;
  
- CREATE SEQUENCE category_seq;
  
+ CREATE SEQUENCE category_seq;
+
  CREATE TABLE category( -- 테이블 title 수정
  id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL); --컬럼수정
  
- 
  DROP sequence category_seq;
  DROP table category;
- 
- 
  
 ----- 메뉴관리 DB 용(끝) -----
  
