@@ -21,4 +21,9 @@ public class TestController {
 	public String kioskIndex() {
 		return "test/kiosk/index";
 	}
+	
+	@GetMapping("/test/login_form")
+	public String testLoginForm() {
+		return "/login_form";
+	}
 }

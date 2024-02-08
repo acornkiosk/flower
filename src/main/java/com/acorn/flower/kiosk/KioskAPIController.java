@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 키오스크
+ */
 @RestController
 public class KioskAPIController {
 	@Autowired
@@ -37,6 +40,8 @@ public class KioskAPIController {
 
 		return result;
 	}
+	
+	
 
 	/**
 	 * 키오스크 1개 정보 얻기
