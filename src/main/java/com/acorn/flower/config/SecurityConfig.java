@@ -25,7 +25,8 @@ public class SecurityConfig {
 				"/api/**", 
 				"/menu/**",
 				"/upload/**",
-				"/test/**","/css/**","/img/**","/js/**","/scss/**","/vendor/**"};
+				"/test/**","/css/**","/img/**","/js/**","/scss/**","/vendor/**",
+				"/swagger","/api-docs"};
 
 		
 		hs.csrf(csrf->csrf.disable()); // spring security 기본 설정인 CSRF를 비활성화 
