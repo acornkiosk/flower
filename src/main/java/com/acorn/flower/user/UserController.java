@@ -7,37 +7,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-	
-	//로그인 폼 요청
+	// 직원관리 페이지 이동
+	@GetMapping("/owner/user/index")
+	public String userIndex() {
+		return "user/index";
+	}
+
+	// 로그인 폼 요청
 	@GetMapping("/user/login_form")
 	public String login_form() {
 		return "user/login_form";
 	}
-	
-	//로그인 실패시
+
+	// 로그인 실패시
 	@PostMapping("/user/fail")
 	public String loginFail() {
 		return "user/fail";
 	}
-	
-	//로그인성공
+
+	// 로그인성공
 	@PostMapping("/user/pass")
 	public String loginPass() {
 		return "user/pass";
 	}
-	
-	//ceo 관리
-	@GetMapping("/owner/test/manage")
-	public String manage() {
-		return "test/manage";
-	}
-	
-	
+
 	@GetMapping("/user/test/menu")
 	public String menu() {
 		return "test/menu";
 	}
-	//권한에 맞지않은 사용자가 들어올때
+
+	// 권한에 맞지않은 사용자가 들어올때
 	@GetMapping("/user/roleFail")
 	public String roleFail() {
 		return "user/roleFail";
