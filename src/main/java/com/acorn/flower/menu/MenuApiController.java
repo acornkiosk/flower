@@ -36,6 +36,7 @@ import com.acorn.flower.menu.category.CategoryService;
  * @version 0.1 / 프로젝트 버전
  */
 
+
 @RestController
 public class MenuApiController {
 	@Autowired
@@ -44,6 +45,7 @@ public class MenuApiController {
 	private CategoryService categoryService;
 
 	
+
 	/** Select : get_categoryList(카테고리 조회) */
 	@GetMapping("/api/menu/category/list")
 	public Map<String, Object> getCategoryList() {
@@ -59,8 +61,9 @@ public class MenuApiController {
 		}
 		return result;
 	}
+
 	/** Select : get_menuList(메뉴 리스트 조회) */
-	@GetMapping("/api/menu/menu/list")
+	@GetMapping("/api/menu/list")
 	public Map<String, Object> getMenuList(){
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<MenuDto> list = menuService.getList();
@@ -74,6 +77,7 @@ public class MenuApiController {
 		}
 		return result;
 	}
+
 	/** Select : get_menu(특정 메뉴 가져오기)*/
 	@GetMapping("/api/menu/{id}")
 	public Map<String, Object> getMenu(@PathVariable int id) {
@@ -90,6 +94,7 @@ public class MenuApiController {
 		return result;
 	}
 
+
 	/** Insert : insert_menu(메뉴등록) */
 	@PostMapping("/api/menu")
 	public void insertMenu(@RequestBody MenuDto dto){
@@ -101,10 +106,12 @@ public class MenuApiController {
 		categoryService.addCategory(dto);
 	}
 	/** Update : update_menu(메뉴수정) */
-	@PutMapping("/api/menu")
+	@PatchMapping("/api/menu")
 	public void updateMenu(@RequestBody MenuDto dto) {
 		menuService.updateMenu(dto);
 	}
+	
+	
 	/** Delete : delete_menu(메뉴삭제) */
 	@DeleteMapping("/api/menu/{id}")
 	public void deleteMenu(@PathVariable int id) {
@@ -115,5 +122,8 @@ public class MenuApiController {
 	public void deleteCategory(@PathVariable int id) {
 		categoryService.deleteCategory(id);
 	}
-	
+
+
+
 }
+

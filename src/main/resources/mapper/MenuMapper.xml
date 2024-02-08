@@ -3,30 +3,30 @@
 <mapper namespace="menu">
 
 	<select id="insert" parameterType="menuDto">
-		INSERT INTO menu_info 
-		(id, name, price, one_sentence, description, img_url, is_sold, category)
-		VALUES(menu_seq.NEXTVAL,#{name},#{price}, #{one_sentence}, #{description},#{img_url},'false',#{category})
+		INSERT INTO menu 
+		(id, name, price, summary, description, img_url, is_sold, category)
+		VALUES(menu_seq.NEXTVAL,#{name},#{price}, #{summary}, #{description},#{img_url},'false',#{category})
 	</select>
 	
 	<update id="update" parameterType="menuDto">
-		UPDATE menu_info
-		SET name=#{name}, price=#{price}, one_sentence=#{one_sentence}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
+		UPDATE menu
+		SET name=#{name}, price=#{price}, summary=#{summary}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
 		WHERE id=#{id}
 	</update>
 	
 	<delete id="delete" parameterType="int">
-		DELETE menu_info
+		DELETE menu
 		WHERE id=#{id}
 	</delete>
 	
 	<select id="getList" resultType="menuDto">
-		SELECT id, name, price, one_sentence, description, img_url, is_sold, category
-		FROM menu_info
+		SELECT id, name, price, summary, description, img_url, is_sold, category
+		FROM menu
 	</select>
 	
 	<select id="getData" parameterType="int" resultType="menuDto">
-		SELECT id, name, price, one_sentence, description, img_url, is_sold, category
-		FROM menu_info
+		SELECT id, name, price, summary, description, img_url, is_sold, category
+		FROM menu
 		WHERE id=#{id}
 	</select>
 

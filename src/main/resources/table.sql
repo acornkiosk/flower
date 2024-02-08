@@ -11,28 +11,28 @@ CREATE TABLE kiosk(
 
 CREATE SEQUENCE menu_seq;
 
-CREATE TABLE menu_info(
+CREATE TABLE menu( -- 테이블 title 수정
  id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL,
  price NUMBER NOT NULL,
- one_sentence VARCHAR2(100),
+ summary VARCHAR2(100),  -- 컬럼수정
  description VARCHAR2(300),
- img_url VARCHAR2(2000),
+ img_url VARCHAR2(2000),  
  is_sold VARCHAR2(50) NOT NULL,
- category VARCHAR2(50) NOT NULL);
+ category VARCHAR2(50)); -- not null 해제
  
  DROP sequence menu_seq;
- DROP table menu_info;
+ DROP table menu;
  
  CREATE SEQUENCE category_seq;
  
- CREATE TABLE category_info(
+ CREATE TABLE category( -- 테이블 title 수정
  id NUMBER PRIMARY KEY NOT NULL,
- category VARCHAR2(50) NOT NULL);
+ name VARCHAR2(50) NOT NULL); --컬럼수정
  
  
  DROP sequence category_seq;
- DROP table category_info;
+ DROP table category;
  
  
  

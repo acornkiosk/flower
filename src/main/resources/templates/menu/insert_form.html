@@ -22,7 +22,7 @@
 			
 			<div class="mb-3">
 				<label class="form-label" for="">꽃말</label>
-				<input class="form-control" type="text" name="one_sentence" />	
+				<input class="form-control" type="text" name="summary" />	
 			</div>
 			
 			<div class="mb-3">
@@ -42,7 +42,7 @@
 				<label class="form-label" for="category">카테고리</label>
 				<select name="category">
 					<span th:each="tmp: ${list}">
-						<option th:text="${tmp.category}" name="category"></option>
+						<option th:text="${tmp.name}" name="name"></option>
 					</span>
 				</select>
 			</div>
