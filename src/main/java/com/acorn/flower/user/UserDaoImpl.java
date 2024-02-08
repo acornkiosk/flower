@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void update(UserDto dto) {
-		session.delete("user.update", dto);
+		session.update("user.update", dto);
 		
 	}
 
