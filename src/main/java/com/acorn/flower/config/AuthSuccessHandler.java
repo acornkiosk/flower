@@ -9,8 +9,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-import com.acorn.flower.login.LoginDao;
-import com.acorn.flower.login.LoginDto;
+
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -37,15 +36,17 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 		session.setMaxInactiveInterval(60*60*10);
 		
 		//AUthentication 객체의 메소드를 이요해서 지금 로그인된 사용자에 대한 자세한 정보를 얻어낼수 있다.
-		String user_id=authentication.getName();
-		session.setAttribute("user_id", user_id);
+		String id=authentication.getName();
+
+		//sessin 에 저장하기
+		session.setAttribute("id", id);
 		// 3. 로그인 성공이후 미리 저장된 요청이 있었는지 읽어와서
 		SavedRequest cashed=requestCache.getRequest(request, response);
 		
 		// 4.만일 미리 저장된 요청이 없다면 (로그인 하지 않은 상태로 인증이 필요한 경로를 요청하지 않았다면)
 		if(cashed==null) {
 			// 5. 로그인 환영 페이지로 foward 이동 시켜준다
-			RequestDispatcher rd=request.getRequestDispatcher("/login/pass");
+			RequestDispatcher rd=request.getRequestDispatcher("/user/pass");
 			rd.forward(request, response);
 		}else {
 			// 6. 원래 가려던 목적지 경로가 있으면 리다이렉트 이동 시킨다.

@@ -13,11 +13,11 @@
 	<div class="container">
 		<div sec:authorize="isAuthenticated()">
 			<strong sec:authentication="name"></strong> 님 로그인중
-			<a th:href="@{/login/logout}">로그아웃</a>
+			<a th:href="@{/user/logout}">로그아웃</a>
 		</div>
 		<div sec:authorize="!isAuthenticated()">
 			로그인중이 아님
-		<a th:href="@{/login/login_form}">로그인하기</a>
+		<a th:href="@{/user/login_form}">로그인하기</a>
 
 		</div>
 		<h1>인덱스 테스트 페이지</h1>	
@@ -25,8 +25,7 @@
 			<li><a th:href="@{/super/kiosk/index}">키오스크 관리</a></li>
 			<li><a th:href="@{/owner/user/index}">직원관리</a></li>
 			<li><a th:href="@{/menu/menu_main}">메뉴관리</a></li>
-			<li><a th:href="@{/login/login_form}">로그인 페이지</a></li>
-			<li><a th:href="@{/test/login_form}">테스트 로그인 폼 페이지</a></li>
+			<li><a th:href="@{/user/login_form}">테스트 로그인 폼 페이지</a></li>
 		</ul>
 	</div>
 </body>
