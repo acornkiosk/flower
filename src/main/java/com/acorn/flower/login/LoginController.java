@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
+	//비로그인사용자  폼 요청
 	@GetMapping("/login/required_loginform")
 	public String requriedLoginForm() {
 		return "login/required_loginform";
@@ -30,10 +31,13 @@ public class LoginController {
 		return "login/pass";
 	}
 	
+	//ceo 관리
 	@GetMapping("/owner/test/manage")
 	public String manage() {
 		return "test/manage";
 	}
+	
+	
 	@GetMapping("/super/test/kiosk")
 	public String kiosk() {
 		return "test/kiosk";
