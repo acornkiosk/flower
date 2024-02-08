@@ -24,7 +24,7 @@
 		WHERE id = #{id}
 	</select>
 	
-	<select id="getUserList" resultType="UserDto">
+	<select id="getUserList" resultType="userDto">
 		SELECT *
 		FROM users
 	</select>
