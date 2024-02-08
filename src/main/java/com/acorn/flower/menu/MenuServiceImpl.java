@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
 	@Value("${file.location}") 
 	private String fileLocation;
 
-	/** Thymeleaf 용 : 메뉴등록 코드 */
+	/** 메뉴등록 코드 */
 	@Override
 	public void addMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
@@ -52,7 +52,7 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.insert(dto);
 	}
 
-	/**  Thymeleaf 용 : 메뉴수정 코드 
+	/**  메뉴수정 코드 
 	 * todo : else 문 작성 필요성 판단하기 
 	 * */
 	@Override
