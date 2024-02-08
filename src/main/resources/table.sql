@@ -44,25 +44,8 @@ CREATE SEQUENCE seq_user_id;
 CREATE TABLE users (
     id VARCHAR2(100) CONSTRAINT users_id_pk PRIMARY KEY, -- 사용자 아이디
     password VARCHAR2(100) CONSTRAINT users_password_nn NOT NULL, -- 사용자 비밀번호
-    role VARCHAR2(50) CONSTRAINT users_role_nn NOT NULL -- 역할
+    rank VARCHAR2(50) CONSTRAINT users_rank_ch check (rank in('super','ceo','emp')) -- 역할
 );
 
 DROP TABLE users;
-
-SELECT * from kiosk;
-
-
-
--- 로그인 관리 DB 생성
-CREATE TABLE login_tb(
-user_id varchar2(100) CONSTRAINT login_tb_user_id_pk primary key, 
-user_pwd varchar2(100) CONSTRAINT login_tb_user_pwd_nn NOT NULL,
-rank varchar2(50) CONSTRAINT login_tb_user_rank check (rank in('super','ceo','emp')) 
-);
-
-drop table login_tb;
-
---insert into login_tb values('testsuper', '1234', 'super');       //테스트용 계정 만들기
---insert into login_tb values('testceo', '1234', 'ceo');
---insert into login_tb values('testemp', '1234', 'emp');
 

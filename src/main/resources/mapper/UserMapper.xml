@@ -3,13 +3,13 @@
 <mapper namespace="user">
 	<insert id="insert" parameterType="userDto">
 		INSERT INTO users
-		(id, password, role)
-		VALUES(#{id}, #{password}, #{role})
+		(id, password, rank)
+		VALUES(#{id}, #{password}, #{rank})
 	</insert>
 	
 	<update id="update" parameterType="userDto">
 		UPDATE users
-		SET password=#{password} , role=#{role}
+		SET password=#{password} , rank=#{rank}
 		WHERE id=#{id}
 	</update>
 	
