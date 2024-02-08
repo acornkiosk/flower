@@ -18,29 +18,29 @@ public class KioskController {
 	@Autowired
 	private KioskService service;
 
-	@GetMapping("/super/kiosk/index")
+	@GetMapping("/emp/kiosk/index")
 	public String kioskIndex(Model model) {
 		List<KioskDto> list = service.getKioskList();
 		model.addAttribute("list", list);
-		return "test/kiosk/index";
+		return "/kiosk/index";
 		//todo 나중에 경로 수정해야함
 	}
 
-	@PostMapping("/super/kiosk/add")
+	@PostMapping("/emp/kiosk/add")
 	public String kioskAdd(KioskDto dto) {
 		dto.setIs_using("false");
 		service.addKiosk(dto);
-		return "redirect:/super/kiosk/index";
+		return "redirect:/emp/kiosk/index";
 	}
 
-	@GetMapping("/super/kiosk/delete")
+	@GetMapping("/emp/kiosk/delete")
 	public String kioskDelete(int id) {
 		service.deleteKiosk(id);
-		return "redirect:/super/kiosk/index";
+		return "redirect:/emp/kiosk/index";
 	}
 
 	@ResponseBody
-	@GetMapping("/super/kiosk/turnOn")
+	@GetMapping("/emp/kiosk/turnOn")
 	public Map<String, Object> kioskTurnOn(int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		service.turnOn(id);
@@ -63,7 +63,7 @@ public class KioskController {
 	}
 
 	@ResponseBody
-	@GetMapping("/super/kiosk/turnOff")
+	@GetMapping("/emp/kiosk/turnOff")
 	public Map<String, Object> kioskTurnOff(int id) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		service.turnOff(id);
@@ -84,23 +84,23 @@ public class KioskController {
 		return result;
 	}
 
-	@GetMapping("/super/kiosk/turnOnAll")
+	@GetMapping("/emp/kiosk/turnOnAll")
 	public String kioskTurnOnAll() {
 		service.turnOnAll();
-		return "redirect:/super/kiosk/index";
+		return "redirect:/emp/kiosk/index";
 	}
 	
-	@GetMapping("/super/kiosk/turnOffAll")
+	@GetMapping("/emp/kiosk/turnOffAll")
 	public String kioskTurnOffAll() {
 		service.turnOffAll();
-		return "redirect:/super/kiosk/index";
+		return "redirect:/emp/kiosk/index";
 	}
 	
-	@PostMapping("/super/kiosk/updateLocation")
+	@PostMapping("/emp/kiosk/updateLocation")
 	public String kioskUpdateLocation(KioskDto dto) {
 		System.out.println(dto);
 		service.updateLocation(dto);
-		return "redirect:/super/kiosk/index";
+		return "redirect:/emp/kiosk/index";
 	}
 
 }
