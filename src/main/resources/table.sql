@@ -49,3 +49,9 @@ CREATE TABLE users (
 
 DROP TABLE users;
 
+<<<<<<< Updated upstream
+=======
+SELECT * from kiosk;
+
+
+>>>>>>> Stashed changes

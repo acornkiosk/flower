@@ -1,34 +1,29 @@
-package com.acorn.flower.login;
+package com.acorn.flower.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class LoginController {
+public class UserController {
 
-	//비로그인사용자  폼 요청
-	@GetMapping("/login/required_loginform")
-	public String requriedLoginForm() {
-		return "login/required_loginform";
-	}
 	
 	//로그인 폼 요청
-	@GetMapping("/login/login_form")
+	@GetMapping("/user/login_form")
 	public String login_form() {
-		return "login/login_form";
+		return "user/login_form";
 	}
 	
 	//로그인 실패시
-	@PostMapping("/login/fail")
+	@PostMapping("/user/fail")
 	public String loginFail() {
-		return "login/fail";
+		return "user/fail";
 	}
 	
 	//로그인성공
-	@PostMapping("/login/pass")
+	@PostMapping("/user/pass")
 	public String loginPass() {
-		return "login/pass";
+		return "user/pass";
 	}
 	
 	//ceo 관리
@@ -38,18 +33,13 @@ public class LoginController {
 	}
 	
 	
-	@GetMapping("/super/test/kiosk")
-	public String kiosk() {
-		return "test/kiosk";
-		
-	}
-	
 	@GetMapping("/user/test/menu")
 	public String menu() {
 		return "test/menu";
 	}
-	@GetMapping("/login/roleFail")
+	//권한에 맞지않은 사용자가 들어올때
+	@GetMapping("/user/roleFail")
 	public String roleFail() {
-		return "login/roleFail";
+		return "user/roleFail";
 	}
 }

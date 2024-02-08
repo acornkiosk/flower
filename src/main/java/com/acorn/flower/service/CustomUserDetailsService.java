@@ -14,23 +14,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.acorn.flower.login.LoginDao;
-import com.acorn.flower.login.LoginDto;
+import com.acorn.flower.user.UserDao;
+import com.acorn.flower.user.UserDto;
+
 
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 
-		@Autowired private LoginDao dao;
+		@Autowired private UserDao dao;
 		
 		
 	//Spring Securty 가 로그인 처리시 호출하는 메소드
 	@Override
-	public UserDetails loadUserByUsername(String user_id) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		//user_id 에는 로그인폼에 입력한 user_id 전달된다
 	
 		//DB에 저장된 데이터를 읽어온다.
-		LoginDto dto=dao.getData(user_id);	
+		UserDto dto=dao.getUser(id);	
 		
 		if(dto==null) {
 			System.out.println("사용자 정보 없음");
@@ -39,16 +40,15 @@ public class CustomUserDetailsService implements UserDetailsService{
 		}
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		//DB에는 암호화 되어서 비밀번호가 저장되 어있으므로 복호화한다.
-		String encodedPwd=encoder.encode(dto.getUser_pwd());
+		String encodedPwd=encoder.encode(dto.getPassword());
 	
 		
-		// 2. UserDetails 객체에 해당정보를 담아서 리턴해 주어야 한다.
+		// 2. UserDetails 객체에 해당정보를 담아서 리턴해 주어야 한다.	
 		// 권한은 1개 이지만 List에 담아서
 		List<GrantedAuthority>  authList=new ArrayList<GrantedAuthority>();
 		authList.add(new SimpleGrantedAuthority("ROLE_"+dto.getRank())); //ROLE_super
-		
 		//Spring Security 가 제공하는 User 클래스는 UserDetails 인터페이스를 구현한 클래스이다.
-		UserDetails ud=new User(dto.getUser_id(),encodedPwd,authList);
+		UserDetails ud=new User(dto.getId(),encodedPwd,authList);
 		
 		
 		return ud;
