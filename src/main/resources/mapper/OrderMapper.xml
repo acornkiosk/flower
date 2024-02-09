@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
+	<select id="getOrderId" resultType="int">
+		SELECT id
+		FROM orders
+	</select>
+	<delete id="deleteOrder" parameterType="int">
+		DELETE FROM orders
+		WHERE id=#{id}
+	</delete>
+	<select id="checkOrder" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM orders
+		WHERE id = #{id}
+	</select>
+	<select id="getOrders" parameterType="int" resultType="listDto">
+		SELECT *
+		FROM 
+			(
+				SELECT o.id AS order_id, o.kiosk_id, m.name AS menu_name, o.menu_count, o.is_completed, o.regdate
+				FROM orders o
+				JOIN menu m ON o.menu_id = m.id
+			) 
+		WHERE order_id = #{id}
+	</select>
 	<insert id="insert" parameterType="orderDto">
 		INSERT INTO orders
 		(id,menu_id, menu_count, kiosk_id, is_completed,regdate)

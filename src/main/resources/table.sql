@@ -53,7 +53,7 @@ DROP TABLE users;
 CREATE SEQUENCE seq_order_id;
 CREATE TABLE orders(
  id NUMBER CONSTRAINT order_id_nn NOT NULL, -- 주문 번호
- menu_id NUMBER CONSTRAINT order_menu_id_nn NOT NULL, -- 메뉴 항목,
+ menu_id VARCHAR2(50) CONSTRAINT order_menu_id_nn NOT NULL, -- 메뉴 항목,
  menu_count NUMBER CONSTRAINT order_menu_count_ch CHECK (menu_count > 0),--메뉴 갯수
  kiosk_id NUMBER CONSTRAINT kiosk_id_NN NOT NULL, -- 주문한 키오스크 id
  is_completed VARCHAR2(5) CONSTRAINT kiosk_is_completed_ch CHECK (is_completed IN ('true','false')),
