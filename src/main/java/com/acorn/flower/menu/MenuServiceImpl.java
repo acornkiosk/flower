@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.flower.menu.category.CategoryDto;
 
@@ -37,18 +38,24 @@ public class MenuServiceImpl implements MenuService {
 	public void addMenu(MenuDto dto) {
 		//1. 업로드된 파일 저장
 		//저장할 파일의 이름 겹치지 않는 유일한 문자열로 얻어내기
-		String saveFileName=UUID.randomUUID().toString();
-		//저장할 파일의 전체 경로 구성하기
-		String filePath=fileLocation+File.separator+saveFileName;
-		try {
-			//업로드된 파일을 이동시킬 목적지 File 객체
-			File f=new File(filePath);
-			//MultipartFile 객체의 메소드를 통해서 실제로 이동시키기(전송하기)
-			dto.getImage().transferTo(f);
-		}catch(Exception e) {
-			e.printStackTrace();
+		
+		MultipartFile image=dto.getImage();
+		System.out.println("imageData :"+ dto.getImage());
+		System.out.println("image :"+ image);
+		if(image.getSize()!=0) {
+			String saveFileName=UUID.randomUUID().toString();
+			//저장할 파일의 전체 경로 구성하기
+			String filePath=fileLocation+File.separator+saveFileName;
+			try {
+				//업로드된 파일을 이동시킬 목적지 File 객체
+				File f=new File(filePath);
+				//MultipartFile 객체의 메소드를 통해서 실제로 이동시키기(전송하기)
+				dto.getImage().transferTo(f);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			dto.setImg_url(saveFileName);
 		}
-		dto.setImg_url(saveFileName);
 		menuDao.insert(dto);
 	}
 
@@ -57,32 +64,24 @@ public class MenuServiceImpl implements MenuService {
 	 * */
 	@Override
 	public void updateMenu(MenuDto dto) {
-		//1. 업로드된 파일 저장
-		//저장할 파일의 이름 겹치지 않는 유일한 문자열로 얻어내기
-		String saveFileName="";
-		if(dto.getImg_url()!=null) {
-			saveFileName=dto.getImg_url();
-		}else {
-			saveFileName=UUID.randomUUID().toString();
-		}
-		
-		//저장할 파일의 전체 경로 구성하기
-		String filePath=fileLocation+File.separator+saveFileName;
-		try {
-	        // MultipartFile이 비어있지 않은 경우에만 파일을 이동시키기
-	        if (dto.getImage() != null && !dto.getImage().isEmpty()) {
+	
+		MultipartFile image=dto.getImage();
+		if(image.getSize()!=0) {
+			String saveFileName=UUID.randomUUID().toString();
+			//저장할 파일의 전체 경로 구성하기
+			String filePath=fileLocation+File.separator+saveFileName;
+			try {
 	            // 업로드된 파일을 이동시킬 목적지 File 객체
 	            File f = new File(filePath);
 	            // MultipartFile 객체의 메소드를 통해서 실제로 이동시키기(전송하기)
 	            dto.getImage().transferTo(f);
-	        } else {
-	            // todo 파일이 비어있는 경우에는 null 또는 원하는 처리를 수행
-	        	
-	        }
-		}catch(Exception e) {
-			e.printStackTrace();
+		        
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			dto.setImg_url(saveFileName);
 		}
-		dto.setImg_url(saveFileName);
+		
 		menuDao.update(dto);
 	}
 

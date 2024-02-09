@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
 
-	<select id="insert" parameterType="menuDto">
+	<insert id="insert" parameterType="menuDto">
 		INSERT INTO menu 
-		(id, name, price, summary, description, img_url, is_sold, category)
-		VALUES(menu_seq.NEXTVAL,#{name},#{price}, #{summary}, #{description},#{img_url},'false',#{category})
-	</select>
+		(id, name, price, summary, description <if test="img_url != null">,img_url</if>, is_sold, category)
+		VALUES(menu_seq.NEXTVAL,#{name},#{price}, #{summary}, #{description}<if test="img_url != null">,#{img_url}</if>, 'false',#{category})
+	</insert>
 	
 	<update id="update" parameterType="menuDto">
 		UPDATE menu
-		SET name=#{name}, price=#{price}, summary=#{summary}, description=#{description}, img_url=#{img_url}, is_sold=#{is_sold}, category=#{category}
+		SET name=#{name}, price=#{price}, summary=#{summary}, description=#{description}<if test="img_url != null">,img_url=#{img_url}</if>, is_sold=#{is_sold}, category=#{category}
 		WHERE id=#{id}
 	</update>
 	
