@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.OrderMapper"></mapper>
+<mapper namespace="order">
+	<insert id="insert" parameterType="orderDto">
+		INSERT INTO orders
+		(id,menu_id, menu_count, kiosk_id, is_completed,regdate)
+		VALUES(#{id},#{menu_id},#{menu_count},#{kiosk_id},'false',SYSDATE)
+	</insert>
+</mapper>
