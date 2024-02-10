@@ -24,7 +24,7 @@ import com.acorn.flower.menu.MenuService;
  * 아래는 수정코드입니다. menu/category/insert_form2.html 실험중입니다.
  * <br>
  * @author "이승우", "김대원"
- * @since 2024-02-09
+ * @since 2024-02-10
  * @version 0.1 / 프로젝트 버전
  */
 

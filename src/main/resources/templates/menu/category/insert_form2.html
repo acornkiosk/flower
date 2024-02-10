@@ -33,6 +33,22 @@
 			flex: 2;
 			margin-left: 10px;
 		}
+		
+		.update-link{
+			text-decoration: none;
+			color: white;
+		}
+		
+		.update-form{
+			position: relative;
+		}
+
+		.updateBtn {
+    		position: absolute;
+  			top: 0;
+  			bottom: 0;
+  			right: 0%;
+		}
 	</style>
 
 </head>
@@ -40,7 +56,7 @@
 <body>
 	<!-- class="container" -->
 	<div class="container">
-
+		
 		<!-- box 의 부모요소 -->
 		<div class="wrapper">
 
@@ -51,7 +67,7 @@
 					<form id="form" style="margin: 20px;">
 						<div class="mb-3">
 							<label class="form-label" for="name">카테고리 이름</label>
-							<input class="form-control" type="text" name="name" id="name"/>
+							<input class="form-control" type="text" name="name" id="name" />
 							<div class="invalid-feedback" id="message"></div>
 						</div>
 						<button type="submit" class="btn btn-primary"> 카테고리 등록하기 </button>
@@ -77,7 +93,7 @@
 										<th class="col-7">제목</th>
 										<th class="col">수정</th>
 										<th class="col"><button class="btn btn-danger btn-sm" value="${tmp.id}"
-												onclick="deleteBtn()">삭제</button></th>
+												onclick="deleteBtn()">전체 삭제</button></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -85,10 +101,26 @@
 									<tr th:each="tmp : ${list}">
 										<td th:text="${tmp.id}" style="display:none"></td>
 										<td><input class="form-check-input" type="checkbox" /></td>
-										<td th:text="${tmp.name}" class="category"></td>
-										<td><button class="btn btn-success btn-sm" value="${tmp.id}">수정</button></td>
+										
+										<!-- 수정버튼 누르기 전 -->
+										<td th:id="'category'+${tmp.id}" class="category" th:text="${tmp.name}"></td>
+										
+										<!-- 수정버튼 누른 후 -->
+										<td th:id="'updateForm'+${tmp.id}" style="display:none">
+											<form class="update-form" >
+												<input class="form-control" type="text" th:value="${tmp.name}">
+												<button class="btn btn-success updateBtn" type="submit">수정</button>
+											</form>
+										</td>
+										
+										<!-- 수정버튼 누르면 숨겨진 수정폼 생성하게 만드는 기능 -->
+										<td>
+											<button class="btn btn-primary btn-sm update-btn" >
+												<a th:attr="data-id=${tmp.id}" class="update-link" href="javascript:">수정</a>
+											</button>
+										</td>
 										<td><button class="btn btn-danger btn-sm" value="${tmp.id}">삭제</button></td>
-									</tr>
+									</tr>									 
 								</tbody>
 							</table>
 						</div>
@@ -118,21 +150,21 @@
 		/** 모아둔 정보 확인하기 */
 		console.log(categoryList)
 
-		/** 등록하기 누를 경우 작동 */
+		/** 등록하기 누를 경우 동작 */
 		form.addEventListener("submit", function (e) {
 			e.preventDefault(); // 즉각 폼전송 방지 
 
 			let name = nameInput.value;
-			
+
 			if (name == "") {
 				nameInput.classList.add("is-invalid")
 				formMessage.innerText = "정보를 입력하시지 않았습니다."
-				
+
 			} else if (categoryList.includes(name)) {
 				nameInput.classList.add("is-invalid")
-       			formMessage.innerText = "이미 존재하는 카테고리입니다.";
+				formMessage.innerText = "이미 존재하는 카테고리입니다.";
 
-    		} else {
+			} else {
 				/** 성공 및 등록 */
 				const newCategory = new FormData(form);
 
@@ -140,38 +172,57 @@
 					method: "POST",
 					body: newCategory
 				})
-				.then(res => res.text())
-				.then(data => {
-					/**
-						현재 페이지 URL로 재전송하는 코드입니다.
-						새로고침처럼 보일 순 있지만 조금 차이가 있습니다. 
-						이 방법은 session를 유지할 수 있고 이전 데이터에서 최신화까지 가능합니다.
-					*/
-					window.location.href = window.location.href;
-				})
+					.then(res => res.text())
+					.then(data => {
+						/**
+							현재 페이지 URL로 재전송하는 코드입니다.
+							새로고침처럼 보일 순 있지만 조금 차이가 있습니다. 
+							이 방법은 session를 유지할 수 있고 이전 데이터에서 최신화까지 가능합니다.
+						*/
+						window.location.href = window.location.href;
+					})
 			}
 		});
 
+		/** 수정하기 기능을 구현하는 함수 */
+		addUpdateListener(".update-link");
 
-		let updateBtn = document.querySelector(".btn btn-success btn-sm");
-
-		/*
-		updateBtn.addEventListener("click", function (e) {
-
-			
-				수정처리 순서 
-				1.카테고리 이름을 가지고 메뉴DB 접속
-				2.null 여부 확인 후 alert 로 사용자한테 알리기 
-				3.변경한다면 이전 이름과 동일한 정보를 바탕으로 메뉴테이블에서 전부 가져오기 
-				4.모두 변경 후 카테고리 테이블도 변경 
-			
-			const category = e.target.value;
-
-			fetch()
-				.then()
-				.then()
-		})
+		/** 
+			인자로 전달되는 선택자를 이용해서 이벤트 리스너를 등록하는 함수 
+			참고코드 : 댓글구현 코드 
 		*/
+		function addUpdateListener(selector){
+			//댓글 수정 링크에 대한 처리
+			const updateLinks=document.querySelectorAll(selector);
+			for(let i=0; i<updateLinks.length; i++){
+				updateLinks[i].addEventListener("click", (e)=>{
+					
+					//클릭한 a 요소의 data-num 속성의 value 값을 읽어온다.(수정할 이름의 번호) 
+					const id=e.target.getAttribute("data-id");
+					
+					//보여주거나 숨길 form 의 참조값 얻어내기 
+					const form=document.querySelector("#updateForm"+id);
+					const category=document.querySelector("#category"+id);
+					
+					//눌러진 링크의 innerText 읽어오기
+					const currentText=e.target.innerText;
+					
+					if(currentText === "수정"){
+						// 수정폼 보이게 하기 
+						form.style.display="";
+						category.style.display="none"
+						e.target.innerText="수정취소";
+						
+					}else if(currentText === "수정취소"){
+						// 수정폼 안보이게 하기 
+						form.style.display="none";
+						category.style.display=""
+						e.target.innerText="수정";
+					}	
+				});
+			}
+		}
+
 
 
 	</script>
