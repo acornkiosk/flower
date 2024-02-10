@@ -3,21 +3,19 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>/test/kiosk/index.html</title>
-	<!-- Custom fonts for this template -->
+	<title>/templates/order/list.html</title>
+	<!-- Custom fonts for this template-->
 	<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
 	<link
 		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 		rel="stylesheet">
 
-	<!-- Custom styles for this template -->
+	<!-- Custom styles for this template-->
 	<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-
-	<!-- Custom styles for this page -->
-	<link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 </head>
 
 <body id="page-top">
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -94,13 +92,14 @@
 			</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-					aria-expanded="true" aria-controls="collapsePages">
+			<li class="nav-item active">
+				<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+					aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
 					<span>Pages</span>
 				</a>
-				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+				<div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Login Screens:</h6>
 						<a class="collapse-item" href="login.html">Login</a>
@@ -109,7 +108,7 @@
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Other Pages:</h6>
 						<a class="collapse-item" href="404.html">404 Page</a>
-						<a class="collapse-item" href="blank.html">Blank Page</a>
+						<a class="collapse-item active" href="blank.html">Blank Page</a>
 					</div>
 				</div>
 			</li>
@@ -122,7 +121,7 @@
 			</li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="tables.html">
 					<i class="fas fa-fw fa-table"></i>
 					<span>Tables</span></a>
@@ -149,11 +148,9 @@
 				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 					<!-- Sidebar Toggle (Topbar) -->
-					<form class="form-inline">
-						<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-							<i class="fa fa-bars"></i>
-						</button>
-					</form>
+					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
 
 					<!-- Topbar Search -->
 					<form
@@ -341,161 +338,173 @@
 								</a>
 							</div>
 						</li>
+
 					</ul>
+
 				</nav>
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<!-- DataTales Example -->
-					<div class="card shadow">
-						<div class="card-header d-flex justify-content-between">
-							<h4 class="font-weight-bold text-primary align-middle" style="margin:8px 0 0;">키오스크 관리</h4>
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#kioskModal">추가하기</button>
-						</div>
 
-						<div class="card-body">
-							<div class="table-responsive">
-								<div class="d-flex justify-content-end mb-2">
-									<a class="btn btn-success" th:href="@{/emp/kiosk/turnOnAll}">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-											<path d="M7.5 1v7h1V1z"></path>
-											<path
-												d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812">
-											</path>
-										</svg>
-										turnOn
-									</a>
-									<a class="btn btn-danger ml-2" th:href="@{/emp/kiosk/turnOffAll}">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-											fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-											<path d="M7.5 1v7h1V1z"></path>
-											<path
-												d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812">
-											</path>
-										</svg>
-										turnOff
-									</a>
-								</div>
-								<table class="table table-bordered table-hover" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<tr>
-											<th>id</th>
-											<th>위치</th>
-											<th id="noArrow">
-
-												전원
-
-											</th>
-											<th id="noArrow">삭제</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="tmp : ${list}">
-											<td th:text="${tmp.id}"></td>
-											<td>
-												<a data-toggle="modal" th:data-target="'#locationModal' + ${tmp.id}"
-													th:text="${tmp.location}"></a>
-
-												<div class="modal fade" th:id="'locationModal' + ${tmp.id}"
-													tabindex="-1" aria-labelledby="'locationModalLabel'+ ${tmp.id}"
-													aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h3 class="modal-title fs-5"
-																	th:id="'locationModalLabel'+ ${tmp.id}">
-																	[[${tmp.id}]]번 위치 변경하기</h3>
-																<button type="button" class="btn btn-close"
-																	data-dismiss="modal" aria-label="Close">X</button>
-															</div>
-															<div class="modal-body container">
-																<form th:action="@{/emp/kiosk/updateLocation}"
-																	method="post">
-																	<input type="hidden" name="id"
-																		th:value="${tmp.id}" />
-																	<label class="form-label" for="location">위치</label>
-																	<input type="text" name="location"
-																		class="form-control" placeholder="현관문 앞 왼쪽..."
-																		th:value="${tmp.location}" />
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">닫기</button>
-																		<button type="submit"
-																			class="btn btn-primary">변경하기</button>
-																	</div>
-																</form>
-															</div>
-
-														</div>
-													</div>
-												</div>
-											</td>
-											<th:block>
-												<td>
-													<a class="text-success" th:attr="data-id=${tmp.id}"
-														th:if="${tmp.is_using == 'true'}" href="javascript:"
-														onclick="turnOff(this);">On</a>
-													<a class="text-danger" th:attr="data-id=${tmp.id}"
-														th:unless="${tmp.is_using == 'true'}" href="javascript:"
-														onclick="turnOn(this);">Off</a>
-												</td>
-											</th:block>
-											<td>
-												<a class="btn btn-outline-secondary"
-													th:href="@{/emp/kiosk/delete(id=${tmp.id})}">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-														fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
-														<path
-															d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
-														</path>
-														<path
-															d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708">
-														</path>
-													</svg>
+					<!-- Page Heading -->
+					<h4 class="mb-5"><strong>주문 목록</strong></h4>
+					<!--Main layout-->
+					<main class="my-5">
+						<div class="container">
+							<!--Section: Content-->
+							<section class="text-center">
+								<div class="row">
+									<div class="col-lg-4 col-md-12 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
 												</a>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/023.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
+												</a>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/111.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
+												</a>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-4 col-md-12 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/002.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
+												</a>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/022.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
+												</a>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-md-6 mb-4">
+										<div class="card">
+											<div class="bg-image hover-overlay" data-mdb-ripple-init
+												data-mdb-ripple-color="light">
+												<img src="https://mdbootstrap.com/img/new/standard/nature/035.jpg"
+													class="img-fluid" />
+												<a href="#!">
+													<div class="mask"
+														style="background-color: rgba(251, 251, 251, 0.15);"></div>
+												</a>
+											</div>
+											<div class="card-body">
+												<h5 class="card-title">Post title</h5>
+												<p class="card-text">
+													Some quick example text to build on the card title and make up the
+													bulk of the
+													card's content.
+												</p>
+												<a href="#!" class="btn btn-primary" data-mdb-ripple-init>Read</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
 						</div>
-					</div>
+					</main>
 
 				</div>
 				<!-- /.container-fluid -->
 
 			</div>
 			<!-- End of Main Content -->
-			<!-- Modal -->
-			<!-- Button trigger modal -->
 
-			<!-- kiosk Add Modal -->
-			<div class="modal fade" id="kioskModal" tabindex="-1" aria-labelledby="kioskModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h3 class="modal-title fs-5" id="kioskModalLabel">키오스크 추가하기</h3>
-							<button type="button" class="btn btn-close" data-dismiss="modal"
-								aria-label="Close">X</button>
-						</div>
-						<div class="modal-body container">
-							<form th:action="@{/emp/kiosk/add}" method="post">
-								<label class="form-label" for="location">위치</label>
-								<input type="text" name="location" class="form-control" placeholder="현관문 앞 왼쪽..." />
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-									<button type="submit" class="btn btn-primary">추가하기</button>
-								</div>
-							</form>
-						</div>
-
-					</div>
-				</div>
-			</div>
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
@@ -538,51 +547,15 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript-->
-	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
-	<script th:src="@{/js/sb-admin-2.min.js}"></script>
+	<script src="js/sb-admin-2.min.js"></script>
 
-	<!-- Page level plugins -->
-	<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
-	<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
-
-	<!-- Page level custom scripts -->
-	<script th:src="@{/js/demo/datatables-demo.js}"></script>
-	<script>
-		//전원 켜기에 대한 처리
-		function turnOn(e) {
-			const id = e.getAttribute("data-id");
-			fetch("[[@{/emp/kiosk/turnOn}]]" + "?id=" + id)
-				.then(res => res.json())
-				.then(data => {
-					if (data.isSuccess) {
-						e.classList.replace('text-danger', 'text-success');
-						e.innerText = 'On';
-						e.setAttribute("onclick", "turnOff(this)");
-					}
-				});
-		}
-
-		//전원 끄기에 대한 처리
-		function turnOff(e) {
-			const id = e.getAttribute("data-id");
-			fetch("[[@{/emp/kiosk/turnOff}]]" + "?id=" + id)
-				.then(res => res.json())
-				.then(data => {
-					if (data.isSuccess) {
-						e.classList.replace('text-success', 'text-danger');
-						e.innerText = 'Off';
-						e.setAttribute("onclick", "turnOn(this)");
-					}
-				});
-		}
-
-	</script>
 </body>
 
 </html>

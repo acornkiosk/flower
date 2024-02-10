@@ -6,5 +6,5 @@ public interface CategoryDao {
 	public List<CategoryDto> getList();
 	public void insert(CategoryDto dto);
 	public void delete(int id);
-	
+	public CategoryDto getData(int id);
 }

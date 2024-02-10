@@ -80,7 +80,7 @@ public class MenuController {
 	@PostMapping("/menu/update")
 	public String updateMenu(MenuDto dto) {
 		menuService.updateMenu(dto);
-		return "menu/update";
+		return "redirect:/menu/menu_main";
 	}
 	
 	/** 데이터 조작 : 삭제 */

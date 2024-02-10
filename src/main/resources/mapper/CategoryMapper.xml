@@ -17,6 +17,10 @@
 		WHERE id=#{id}
 	</delete>
 
-
+	<select id="getData" parameterType="int" resultType="categoryDto">
+		SELECT id,name
+		FROM category
+		WHERE id=#{id}
+	</select>
 
 </mapper>
