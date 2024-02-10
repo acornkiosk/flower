@@ -29,5 +29,12 @@
 		FROM menu
 		WHERE id=#{id}
 	</select>
+	
+	<select id="getCategoryMenuList" parameterType="categoryDto" resultType="menuDto">
+		SELECT id, name, price, summary, description, img_url, is_sold, menu.category
+		FROM menu, category
+		WHERE menu.category = category.name
+		AND category = #{name}
+	</select>
 
 </mapper>

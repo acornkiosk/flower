@@ -5,11 +5,13 @@ import java.util.Map;
 
 import org.springframework.ui.Model;
 
+import com.acorn.flower.menu.category.CategoryDto;
+
 public interface MenuService {
 	public void addMenu(MenuDto dto);
 	public void updateMenu(MenuDto dto);
 	public void deleteMenu(int id);
 	public List<MenuDto> getList();
-	// public Map<String, Object> getData(int id); // ApiController.java 용 
-	public MenuDto getData(int id); // MenuController.java 용 
+	public MenuDto getData(int id);
+	public List<MenuDto> getList(CategoryDto dto);
 }

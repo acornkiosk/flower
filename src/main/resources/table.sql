@@ -24,23 +24,23 @@ CREATE TABLE menu(
  DROP sequence menu_seq;
  DROP table menu;
  
+
+
  CREATE SEQUENCE category_seq;
- 
- CREATE TABLE category( 
+
+ CREATE TABLE category( -- 테이블 title 수정
  id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL); 
  
- 
  DROP sequence category_seq;
  DROP table category;
- 
- 
  
 ----- 메뉴관리 DB 용(끝) -----
  
 
 -- 사용자 관리 DB 생성
 CREATE SEQUENCE seq_user_id;
+
 CREATE TABLE users (
     id VARCHAR2(100) CONSTRAINT users_id_pk PRIMARY KEY, -- 사용자 아이디
     password VARCHAR2(100) CONSTRAINT users_password_nn NOT NULL, -- 사용자 비밀번호

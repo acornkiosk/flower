@@ -102,6 +102,11 @@ public class MenuServiceImpl implements MenuService {
 	public List<MenuDto> getList() {
 		return menuDao.getList();
 	}
+
+	@Override
+	public List<MenuDto> getList(CategoryDto dto) {
+		return menuDao.getList(dto);
+	}
 	
 
 	

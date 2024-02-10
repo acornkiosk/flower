@@ -29,6 +29,12 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 	}
 
+	@Override
+	public CategoryDto getData(int id) {
+		return session.selectOne("category.getData", id);
+		
+	}
+
 	
 	
 }
