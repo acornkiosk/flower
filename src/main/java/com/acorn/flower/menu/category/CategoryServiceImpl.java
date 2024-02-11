@@ -30,4 +30,9 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryDao.getData(id);
 	}
 
+	@Override
+	public void updateCategory(CategoryDto dto) {
+		categoryDao.update(dto);
+	}
+
 };
