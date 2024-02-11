@@ -31,10 +31,10 @@
 	</select>
 	
 	<select id="getCategoryMenuList" parameterType="categoryDto" resultType="menuDto">
-		SELECT id, name, price, summary, description, img_url, is_sold, menu.category
-		FROM menu, category
-		WHERE menu.category = category.name
-		AND category = #{name}
+		SELECT menu.id, menu.name, menu.price, menu.summary, menu.description, menu.img_url, menu.is_sold, menu.category
+		FROM menu
+		INNER JOIN category ON menu.category = category.name
+		WHERE category.name = #{name}
 	</select>
 
 </mapper>

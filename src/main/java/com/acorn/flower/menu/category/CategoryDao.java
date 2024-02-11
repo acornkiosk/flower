@@ -7,4 +7,5 @@ public interface CategoryDao {
 	public void insert(CategoryDto dto);
 	public void delete(int id);
 	public CategoryDto getData(int id);
+	public void update(CategoryDto dto);
 }

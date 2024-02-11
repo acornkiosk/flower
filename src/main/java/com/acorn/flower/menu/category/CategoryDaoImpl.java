@@ -35,6 +35,11 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 	}
 
+	@Override
+	public void update(CategoryDto dto) {
+		session.update("category.update", dto);
+	}
+
 	
 	
 }

@@ -33,21 +33,21 @@
 			flex: 2;
 			margin-left: 10px;
 		}
-		
-		.update-link{
+
+		.update-link {
 			text-decoration: none;
 			color: white;
 		}
-		
-		.update-form{
+
+		.update-form {
 			position: relative;
 		}
 
 		.updateBtn {
-    		position: absolute;
-  			top: 0;
-  			bottom: 0;
-  			right: 0%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0%;
 		}
 	</style>
 
@@ -56,7 +56,7 @@
 <body>
 	<!-- class="container" -->
 	<div class="container">
-		
+
 		<!-- box 의 부모요소 -->
 		<div class="wrapper">
 
@@ -67,8 +67,8 @@
 					<form id="form" style="margin: 20px;">
 						<div class="mb-3">
 							<label class="form-label" for="name">카테고리 이름</label>
-							<input class="form-control" type="text" name="name" id="name" />
-							<div class="invalid-feedback" id="message"></div>
+							<input class="form-control" type="text" name="name" id="insert-name" />
+							<div class="invalid-feedback" id="insert-message"></div>
 						</div>
 						<button type="submit" class="btn btn-primary"> 카테고리 등록하기 </button>
 					</form>
@@ -88,12 +88,11 @@
 								<thead>
 									<tr>
 										<th class="col" style="display:none">번호</th>
-										<th class="col"><input class="form-check-input" type="checkbox"
-												onclick="allChecked()" /></th>
+										<th class="col"><input class="form-check-input" type="checkbox" /></th>
 										<th class="col-7">제목</th>
 										<th class="col">수정</th>
-										<th class="col"><button class="btn btn-danger btn-sm" value="${tmp.id}"
-												onclick="deleteBtn()">전체 삭제</button></th>
+										<th class="col"><button class="btn btn-danger btn-sm"
+												value="${tmp.id}">삭제</button></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -101,26 +100,35 @@
 									<tr th:each="tmp : ${list}">
 										<td th:text="${tmp.id}" style="display:none"></td>
 										<td><input class="form-check-input" type="checkbox" /></td>
-										
+
 										<!-- 수정버튼 누르기 전 -->
 										<td th:id="'category'+${tmp.id}" class="category" th:text="${tmp.name}"></td>
-										
+
 										<!-- 수정버튼 누른 후 -->
 										<td th:id="'updateForm'+${tmp.id}" style="display:none">
-											<form class="update-form" >
-												<input class="form-control" type="text" th:value="${tmp.name}">
-												<button class="btn btn-success updateBtn" type="submit">수정</button>
+											<form class="update-form" method="post" th:attr="data-id=${tmp.id}">
+												<div class="mb-3">
+													<input class="form-control" type="text" name="id"
+														th:value="${tmp.id}" style="display:none" readonly />
+													<input class="form-control" type="text" name="name"
+														th:value="${tmp.name}" th:id="'updateName'+${tmp.id}">
+													<div class="invalid-feedback" th:id="'updateMessage'+${tmp.id}">
+													</div>
+													<!-- javascript 로 Modal 호출하기 -->
+													<button class="btn btn-success updateBtn" type="submit">수정</button>
+												</div>
 											</form>
 										</td>
-										
+
 										<!-- 수정버튼 누르면 숨겨진 수정폼 생성하게 만드는 기능 -->
 										<td>
-											<button class="btn btn-primary btn-sm update-btn" >
-												<a th:attr="data-id=${tmp.id}" class="update-link" href="javascript:">수정</a>
+											<button class="btn btn-primary btn-sm update-btn">
+												<a th:attr="data-id=${tmp.id}" class="update-link"
+													href="javascript:">수정</a>
 											</button>
 										</td>
 										<td><button class="btn btn-danger btn-sm" value="${tmp.id}">삭제</button></td>
-									</tr>									 
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -132,13 +140,33 @@
 	</div>
 	<!-- class="container" -->
 
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 수정</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body"></div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary" id="updateModalBtn">수정하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		/** form 관련 변수들 */
 		const form = document.querySelector("#form");
-		const formMessage = document.querySelector("#message")
-		let nameInput = document.querySelector("#name");
+		const formMessage = document.querySelector("#insert-message")
+		const nameInput = document.querySelector("#insert-name");
 
-		/** 나열된 리스트 정보 */
+		/** 나열된 카테고리 정보 */
 		const categoryList = [];
 		let nodeList = document.querySelectorAll(".category")
 
@@ -158,11 +186,11 @@
 
 			if (name == "") {
 				nameInput.classList.add("is-invalid")
-				formMessage.innerText = "정보를 입력하시지 않았습니다."
+				formMessage.innerText = "정보를 입력하지 않았습니다."
 
 			} else if (categoryList.includes(name)) {
 				nameInput.classList.add("is-invalid")
-				formMessage.innerText = "이미 존재하는 카테고리입니다.";
+				formMessage.innerText = "이미 카테고리가 존재합니다.";
 
 			} else {
 				/** 성공 및 등록 */
@@ -178,50 +206,106 @@
 							현재 페이지 URL로 재전송하는 코드입니다.
 							새로고침처럼 보일 순 있지만 조금 차이가 있습니다. 
 							이 방법은 session를 유지할 수 있고 이전 데이터에서 최신화까지 가능합니다.
+							http 프로토콜 무결
 						*/
 						window.location.href = window.location.href;
 					})
 			}
-		});
+		}); // form.addEventListener()
 
 		/** 수정하기 기능을 구현하는 함수 */
 		addUpdateListener(".update-link");
+		addUpdateFormListener(".update-form");
 
-		/** 
-			인자로 전달되는 선택자를 이용해서 이벤트 리스너를 등록하는 함수 
-			참고코드 : 댓글구현 코드 
-		*/
-		function addUpdateListener(selector){
+		/** 파란색 수정하기 버튼을 누를 때마다 수정폼을 감추거나 보여준다. */
+		function addUpdateListener(selector) {
 			//댓글 수정 링크에 대한 처리
-			const updateLinks=document.querySelectorAll(selector);
-			for(let i=0; i<updateLinks.length; i++){
-				updateLinks[i].addEventListener("click", (e)=>{
-					
+			const updateLinks = document.querySelectorAll(selector);
+			for (let i = 0; i < updateLinks.length; i++) {
+				updateLinks[i].addEventListener("click", (e) => {
+
 					//클릭한 a 요소의 data-num 속성의 value 값을 읽어온다.(수정할 이름의 번호) 
-					const id=e.target.getAttribute("data-id");
-					
+					const id = e.target.getAttribute("data-id");
+
 					//보여주거나 숨길 form 의 참조값 얻어내기 
-					const form=document.querySelector("#updateForm"+id);
-					const category=document.querySelector("#category"+id);
-					
+					const form = document.querySelector("#updateForm" + id); // td 요소 
+					const category = document.querySelector("#category" + id); // td 요소 
+
 					//눌러진 링크의 innerText 읽어오기
-					const currentText=e.target.innerText;
-					
-					if(currentText === "수정"){
+					const currentText = e.target.innerText; // 버튼에 기재된 단어 
+
+					//초록색 버튼 실패양식 초기화용 
+					const updateCategory = document.querySelector("#updateName" + id);
+					const updateMessage = document.querySelector("#updateMessage" + id);
+
+					if (currentText === "수정") {
 						// 수정폼 보이게 하기 
-						form.style.display="";
-						category.style.display="none"
-						e.target.innerText="수정취소";
-						
-					}else if(currentText === "수정취소"){
+						form.style.display = "";
+						category.style.display = "none"
+						e.target.innerText = "취소";
+
+					} else if (currentText === "취소") {
 						// 수정폼 안보이게 하기 
-						form.style.display="none";
-						category.style.display=""
-						e.target.innerText="수정";
-					}	
+						form.style.display = "none";
+						category.style.display = ""
+						e.target.innerText = "수정";
+
+						updateCategory.classList.remove("is-invalid")
+					}
 				});
 			}
-		}
+		} // addUpdateListener()
+
+		/** 초록색 수정버튼을 누르면 카테고리 정보를 메뉴DB와 함께 같이 바꿔버린다. */
+		function addUpdateFormListener(selector) {
+			//댓글 수정폼 제출에 대한 처리
+			const updateForms = document.querySelectorAll(selector);
+			for (let i = 0; i < updateForms.length; i++) {
+				updateForms[i].addEventListener("submit", (e) => {
+					// 폼 제출을 막은 다음 
+					e.preventDefault();
+					// submit 이벤트가 일어난 form 의 참조값을 form 이라는 변수에 담기 
+					const form = e.target;
+					// 클릭한 a 요소의 data-num 속성의 value 값을 읽어온다.(수정할 이름의 번호) 
+					const id = e.target.getAttribute("data-id");
+					// input 참조값 가져오기 
+					const updateCategory = document.querySelector("#updateName" + id);
+					// 참조값 안에서 text 값 추출
+					const value = updateCategory.value;
+					// 에러메세지 
+					const updateMessage = document.querySelector("#updateMessage" + id);
+
+					if (value === "") {
+						updateCategory.classList.add("is-invalid")
+						updateMessage.innerText = "정보를 입력하지 않으면 수정할 수 없습니다."
+
+					} else if (categoryList.includes(value)) {
+						updateCategory.classList.add("is-invalid")
+						updateMessage.innerText = "이미 존재하는 카테고리입니다."
+
+					} else {
+						updateCategory.classList.remove("is-invalid")
+
+						const submitBtn = form.querySelector(".btn-success");
+						submitBtn.setAttribute("data-bs-toggle", "modal");
+						submitBtn.setAttribute("data-bs-target", "#staticBackdrop");
+
+						const modalMessege = document.querySelector(".modal-body")
+						modalMessege.innerText = "진심 '" + value + "' 이걸로 바꿀거임?"
+
+						/** 수정하기 버튼에 클릭 이벤트 리스너 추가 
+						const updateModalBtn = document.querySelector("#updateModalBtn");
+						updateModalBtn.addEventListener("click", ()=>{
+							console.log(value);
+							document.querySelector("#staticBackdrop").style.display="none";
+						});
+						*/
+					};
+
+				});
+			}
+		} // addUpdateFormListener() 
+		
 
 
 

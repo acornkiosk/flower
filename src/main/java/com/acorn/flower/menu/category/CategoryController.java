@@ -1,5 +1,6 @@
 package com.acorn.flower.menu.category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CategoryController {
 	@Autowired private CategoryService service;
 	@Autowired private MenuService menuService;
 	
-	/** 1.카테고리 등록 페이지 이동처리 */
+	/** 1.카테고리 등록 페이지 이동 */
 	@GetMapping("/menu/category/insert_form")
 	public String insertForm() {
 		return "menu/category/insert_form";
@@ -46,7 +47,7 @@ public class CategoryController {
 		return service.getList();
 	}
 	
-//	/** 3.폼으로 데이터 저장(중복방지 주석처리)*/
+//	/** 3.카테고리 등록요청(중복방지 주석처리)*/
 //	@PostMapping("/menu/category/insert")
 //	public String insert(CategoryDto dto) {
 //		service.addCategory(dto);
@@ -63,7 +64,7 @@ public class CategoryController {
 	
 	// ========================================
 	
-	/** 1.카테고리 등록 페이지 이동처리 */
+	/** 1.카테고리 등록 페이지 이동 */
 	@GetMapping("/menu/category/insert_form2")
 	public String insertForm2(Model model) {
 		List<CategoryDto> list = service.getList();
@@ -73,7 +74,7 @@ public class CategoryController {
 	
 	/** 2.등록 페이지 내에서 javascript fetch 함수로 부름 : 사용안함 */
 	
-	/** 3.폼으로 데이터 저장 */
+	/** 3.카테고리 등록요청 */
 	@PostMapping("/menu/category/insert")
 	public String insert2(CategoryDto dto) {
 		service.addCategory(dto);
@@ -82,13 +83,23 @@ public class CategoryController {
 	
 	/** 4.데이터 삭제 : 아직 사용안함  */
 	
-	/** 5.카테고리 이름을 가지고 메뉴DB getList : 추가한 메서드  */
-	@GetMapping("/menu/category/menuDB")
-	public List<MenuDto> menuDB(int id){
-		CategoryDto dto = service.getData(id);
-		List<MenuDto> list = menuService.getList(dto);
+	/** 5.카테고리에 속한 메뉴DB getList : 추가한 메서드  */
+	@ResponseBody
+	@GetMapping("/menu/category/menuDB/{id}")
+	public List<MenuDto> menuDB(@PathVariable int id){
+		CategoryDto beforeDto = service.getData(id);
+		List<MenuDto> list = menuService.getList(beforeDto);
 		return list;
 	}
+	
+	/** 6.카테고리만 수정 : 추가한 메서드 */
+	@PostMapping("/menu/category/update")
+	public String update(CategoryDto dto) {
+		service.updateCategory(dto);
+		return "menu/category/insert_form2";
+	}
+	
+	/** 카테고리와 메뉴DB 동시 수정 : 추가한 메서드 */
 	
 	
 }
