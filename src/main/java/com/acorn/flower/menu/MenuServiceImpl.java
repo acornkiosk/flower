@@ -66,6 +66,7 @@ public class MenuServiceImpl implements MenuService {
 	public void updateMenu(MenuDto dto) {
 	
 		MultipartFile image=dto.getImage();
+		System.out.println("image :"+ image);
 		if(image.getSize()!=0) {
 			String saveFileName=UUID.randomUUID().toString();
 			//저장할 파일의 전체 경로 구성하기
@@ -107,10 +108,5 @@ public class MenuServiceImpl implements MenuService {
 	public List<MenuDto> getList(CategoryDto dto) {
 		return menuDao.getList(dto);
 	}
-	
-
-	
-
-	
 	
 }

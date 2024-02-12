@@ -12,6 +12,7 @@
 		SELECT id,name
 		FROM category
 	</select>
+	
 	<delete id="delete" parameterType="int">
 		DELETE FROM category
 		WHERE id=#{id}
@@ -26,6 +27,12 @@
 	<update id="update" parameterType="categoryDto">
 		UPDATE category
 		SET name=#{name}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="updateMenu" parameterType="menuDto">
+		UPDATE menu
+		SET category=#{category}
 		WHERE id=#{id}
 	</update>
 

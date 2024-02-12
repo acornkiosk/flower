@@ -88,25 +88,23 @@
 								<thead>
 									<tr>
 										<th class="col" style="display:none">번호</th>
-										<th class="col"><input class="form-check-input" type="checkbox" /></th>
 										<th class="col-7">제목</th>
 										<th class="col">수정</th>
-										<th class="col"><button class="btn btn-danger btn-sm"
-												value="${tmp.id}">삭제</button></th>
+										<th class="col">삭제</th>
 									</tr>
 								</thead>
 								<tbody>
 									<!-- category 값이 null 이 아닌 경우에만 생성하기 -->
 									<tr th:each="tmp : ${list}">
 										<td th:text="${tmp.id}" style="display:none"></td>
-										<td><input class="form-check-input" type="checkbox" /></td>
 
 										<!-- 수정버튼 누르기 전 -->
-										<td th:id="'category'+${tmp.id}" class="category" th:text="${tmp.name}"></td>
+										<td th:id="'category'+${tmp.id}" class="category" th:value="${tmp.name}"
+											th:text="${tmp.name}"></td>
 
 										<!-- 수정버튼 누른 후 -->
 										<td th:id="'updateForm'+${tmp.id}" style="display:none">
-											<form class="update-form" method="post" th:attr="data-id=${tmp.id}">
+											<form class="update-form" th:attr="data-id=${tmp.id}">
 												<div class="mb-3">
 													<input class="form-control" type="text" name="id"
 														th:value="${tmp.id}" style="display:none" readonly />
@@ -114,7 +112,6 @@
 														th:value="${tmp.name}" th:id="'updateName'+${tmp.id}">
 													<div class="invalid-feedback" th:id="'updateMessage'+${tmp.id}">
 													</div>
-													<!-- javascript 로 Modal 호출하기 -->
 													<button class="btn btn-success updateBtn" type="submit">수정</button>
 												</div>
 											</form>
@@ -139,26 +136,6 @@
 
 	</div>
 	<!-- class="container" -->
-
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="staticBackdropLabel">카테고리 수정</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body"></div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary" id="updateModalBtn">수정하기</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<script>
 		/** form 관련 변수들 */
@@ -236,7 +213,6 @@
 
 					//초록색 버튼 실패양식 초기화용 
 					const updateCategory = document.querySelector("#updateName" + id);
-					const updateMessage = document.querySelector("#updateMessage" + id);
 
 					if (currentText === "수정") {
 						// 수정폼 보이게 하기 
@@ -264,48 +240,108 @@
 				updateForms[i].addEventListener("submit", (e) => {
 					// 폼 제출을 막은 다음 
 					e.preventDefault();
-					// submit 이벤트가 일어난 form 의 참조값을 form 이라는 변수에 담기 
-					const form = e.target;
+					// 입력전 값
+					const beforeValue = categoryList[i]
 					// 클릭한 a 요소의 data-num 속성의 value 값을 읽어온다.(수정할 이름의 번호) 
 					const id = e.target.getAttribute("data-id");
 					// input 참조값 가져오기 
 					const updateCategory = document.querySelector("#updateName" + id);
-					// 참조값 안에서 text 값 추출
-					const value = updateCategory.value;
+					// 입력값 
+					const afterValue = updateCategory.value;
 					// 에러메세지 
 					const updateMessage = document.querySelector("#updateMessage" + id);
+					// submit 이벤트가 일어난 form 의 참조값을 form 이라는 변수에 담기 
+					const form = e.target;
 
-					if (value === "") {
+					if (afterValue === "") {
 						updateCategory.classList.add("is-invalid")
 						updateMessage.innerText = "정보를 입력하지 않으면 수정할 수 없습니다."
 
-					} else if (categoryList.includes(value)) {
+					} else if (categoryList.includes(afterValue)) {
 						updateCategory.classList.add("is-invalid")
 						updateMessage.innerText = "이미 존재하는 카테고리입니다."
 
 					} else {
 						updateCategory.classList.remove("is-invalid")
 
-						const submitBtn = form.querySelector(".btn-success");
-						submitBtn.setAttribute("data-bs-toggle", "modal");
-						submitBtn.setAttribute("data-bs-target", "#staticBackdrop");
+						let updateAlert = confirm("진심 '" + beforeValue + " 이거에서 " + afterValue + "' 이걸로 바꿀거임?");
 
-						const modalMessege = document.querySelector(".modal-body")
-						modalMessege.innerText = "진심 '" + value + "' 이걸로 바꿀거임?"
+						if (updateAlert) {
+							/** 변경 전에 메뉴DB에서 정보 가져오기 */
+							fetch("[[@{/}]]menu/category/menuDB/" + id)
+								.then(res => res.json())
+								.then(async data => { // data => [{},{},{}...] 형태의 '비동기' 함수로 변경
 
-						/** 수정하기 버튼에 클릭 이벤트 리스너 추가 
-						const updateModalBtn = document.querySelector("#updateModalBtn");
-						updateModalBtn.addEventListener("click", ()=>{
-							console.log(value);
-							document.querySelector("#staticBackdrop").style.display="none";
-						});
-						*/
+									// fetch 요청을 담을 배열
+									const fetchPromises = [];
+
+									for (let i = 0; i < data.length; i++) {
+										// 담기 전 formData 객체만 생성 
+										const formData = new FormData();
+										// 메뉴 데이터 객체
+										const menuDto = data[i];
+
+										let id = menuDto.id;
+										let name = menuDto.name;
+										let price = menuDto.price;
+										let summary = menuDto.summary;
+										let description = menuDto.description;
+										let img_url = menuDto.img_url;
+										let is_sold = menuDto.is_sold;
+										let category = afterValue; // 바꾼 카테고리 
+										
+										console.log("수정한 "+data[i]+"번째 카테고리: "+category);
+
+										/** key 값을 통해 mapper 전달 */
+										formData.append("id", id);
+										formData.append("name", name);
+										formData.append("price", price);
+										formData.append("summary", summary);
+										formData.append("description", description);
+										formData.append("img_url", img_url);
+										formData.append("is_sold", is_sold);
+										formData.append("category", category);
+
+										// 각 fetch 요청을 배열에 추가
+										fetchPromises.push(
+											fetch("[[@{/}]]menu/category/updateMenu", {
+												method: "POST",
+												body: formData
+											})
+												.then(res => res.text())
+												.then(data => console.log(data))
+												.catch(error => {
+													console.error('Error updating menu:', error);
+												})
+										);
+									}
+
+									// 모든 fetch 요청을 병렬로 처리
+									await Promise.all(fetchPromises);
+									
+									// form 에서 가져온 최종 카테고리 정보 가져오고 폼에 저장 
+									const formData = new FormData(form);
+										
+									// 카테고리 최종 수정 
+									await fetch("[[@{/}]]menu/category/update",{
+										method: "POST",
+										body: formData
+									})
+									.then(res=>res.text())
+									.then(data=> {
+										alert("수정되었습니다.")
+										window.location.href = window.location.href;
+									});
+
+								});
+						} // if (updateAlert)
+
 					};
 
 				});
 			}
 		} // addUpdateFormListener() 
-		
+
 
 
 

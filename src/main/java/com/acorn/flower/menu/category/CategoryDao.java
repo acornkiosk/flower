@@ -2,10 +2,13 @@ package com.acorn.flower.menu.category;
 
 import java.util.List;
 
+import com.acorn.flower.menu.MenuDto;
+
 public interface CategoryDao {
 	public List<CategoryDto> getList();
 	public void insert(CategoryDto dto);
 	public void delete(int id);
 	public CategoryDto getData(int id);
 	public void update(CategoryDto dto);
+	public void updateMenu(MenuDto dto);
 }
