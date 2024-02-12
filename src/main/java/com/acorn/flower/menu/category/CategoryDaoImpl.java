@@ -48,4 +48,18 @@ public class CategoryDaoImpl implements CategoryDao {
 		session.update("category.updateMenu", dto);
 	}
 
+	@Override
+	public void updateToNull(String name) {
+		session.update("category.updateToNull",name);
+		
+	}
+
+	@Override
+	public int menuRowCount(String name) {
+		
+		return session.selectOne("category.menuRowCount", name);
+	}
+
+	
+	
 }
