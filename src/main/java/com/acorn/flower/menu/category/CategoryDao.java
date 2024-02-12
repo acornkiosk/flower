@@ -11,4 +11,7 @@ public interface CategoryDao {
 	public CategoryDto getData(int id);
 	public void update(CategoryDto dto);
 	public void updateMenu(MenuDto dto);
+	public void updateToNull(String name);// 메뉴의 카테고리를 null로..
+	public int menuRowCount(String name);// 특정 카테고리를 가지고 있는 메뉴갯수 
+
 }

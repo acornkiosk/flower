@@ -124,7 +124,9 @@
 													href="javascript:">수정</a>
 											</button>
 										</td>
-										<td><button class="btn btn-danger btn-sm" value="${tmp.id}">삭제</button></td>
+										<td><a class="btn btn-danger btn-sm delete-link" 
+											th:attr="data-id=${tmp.id}"
+											herf="javascript:">[[${tmp.id}]]삭제</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -136,6 +138,7 @@
 
 	</div>
 	<!-- class="container" -->
+
 
 	<script>
 		/** form 관련 변수들 */
@@ -185,6 +188,7 @@
 							이 방법은 session를 유지할 수 있고 이전 데이터에서 최신화까지 가능합니다.
 							http 프로토콜 무결
 						*/
+						console.log(data)
 						window.location.href = window.location.href;
 					})
 			}
@@ -193,6 +197,7 @@
 		/** 수정하기 기능을 구현하는 함수 */
 		addUpdateListener(".update-link");
 		addUpdateFormListener(".update-form");
+		
 
 		/** 파란색 수정하기 버튼을 누를 때마다 수정폼을 감추거나 보여준다. */
 		function addUpdateListener(selector) {
@@ -341,6 +346,74 @@
 				});
 			}
 		} // addUpdateFormListener() 
+
+		
+		/** 삭제하기 기능을 구현하는 함수 */
+		addDeleteListener(".delete-link");
+		/** 삭제하기 기능을 구현한 함수*/
+		function addDeleteListener(selector){
+			//삭제 링크에 대한 처리
+			const deleteLinks=document.querySelectorAll(selector)
+			for(let i=0; i<deleteLinks.length; i++){
+				deleteLinks[i].addEventListener("click", (e)=>{
+					//클릭한 a 요소의 data-id 속성의 value 값을 읽어온다.(삭제할 댓글의 번호) 
+					const id=e.target.getAttribute("data-id");
+					
+					// 카테고리가 일치하는 메뉴의 갯수를 가져온다
+					fetch(`[[@{/}]]menu/category/menuRowCount/${id}`)
+					.then(res=>res.json())
+					.then(data=>{
+						let menuRowCount=data
+						console.log(menuRowCount)
+						if(data>0){
+							let confirmValue=confirm(`카테고리를 사용중인 메뉴가 "${data}"개 존재합니다\n메뉴안 카테고리는 기본 값으로 초기화 됩니다. 정말 삭제하시겠습니까? `) 	
+							if(confirmValue){
+								fetch(`[[@{/}]]menu/category/delete/${id}`)
+								.then(res=>res.json())
+								.then(data=>{
+									console.log(data)
+									window.location.href = window.location.href;
+								})
+								.catch(error=>{
+									console.log(error);
+								});
+							}
+							
+						}else{
+							fetch(`[[@{/}]]menu/category/delete/${id}`)
+							.then(res=>res.json())
+							.then(data=>{
+								console.log(data)
+								window.location.href = window.location.href;
+							})
+							.catch(error=>{
+								console.log(error);
+							});
+						}
+					})
+					.catch(error=>{
+						console.log(error);
+					}); 
+					
+					
+
+					/*// 메뉴의 category와 카고리의 name을 삭제하기
+					fetch(`[[@{/}]]menu/category/delete/${id}`)
+					.then(res=>res.json())
+					.then(data=>{
+						console.log(data)
+						window.location.href = window.location.href;
+					})
+					.catch(error=>{
+						console.log(error);
+					}); */
+					
+					
+					
+				});
+			}
+	
+		}
 
 
 

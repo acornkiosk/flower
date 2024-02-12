@@ -29,8 +29,12 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void deleteCategory(int id) {
+		CategoryDto dto=categoryDao.getData(id);
+		String name= dto.getName();
+		categoryDao.updateToNull(name);
 		categoryDao.delete(id);
 	}
+
 
 	@Override
 	public CategoryDto getData(int id) {
@@ -46,6 +50,14 @@ public class CategoryServiceImpl implements CategoryService{
 	public void updateMenu(MenuDto dto) {
 		System.out.println("Received DTO(Service): " + dto);
 		categoryDao.updateMenu(dto);
+	}
+
+	@Override
+	public int menuCategoryCount(int id) {
+		CategoryDto dto=categoryDao.getData(id);
+		String category= dto.getName();
+		return categoryDao.menuRowCount(category);
+		
 	}
 
 };

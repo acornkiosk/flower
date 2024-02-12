@@ -13,4 +13,6 @@ public interface CategoryService {
 	public CategoryDto getData(int id);
 	public void updateCategory(CategoryDto dto);
 	public void updateMenu(MenuDto dto);
+	public int menuCategoryCount(int id);
+
 }
