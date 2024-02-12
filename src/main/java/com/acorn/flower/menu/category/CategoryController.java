@@ -92,14 +92,21 @@ public class CategoryController {
 		return list;
 	}
 	
-	/** 6.카테고리만 수정 : 추가한 메서드 */
+	/** 6.카테고리로 메뉴DB 수정 : 추가한 메서드 */
+	@ResponseBody
+	@PostMapping("/menu/category/updateMenu")
+	public String updateMenu(MenuDto dto) {
+		service.updateMenu(dto);
+		return "connectMenuDB";
+	}
+	
+	/** 6.카테고리 수정 : 추가한 메서드 */
+	@ResponseBody
 	@PostMapping("/menu/category/update")
 	public String update(CategoryDto dto) {
 		service.updateCategory(dto);
-		return "menu/category/insert_form2";
+		return "updateComplet";
 	}
-	
-	/** 카테고리와 메뉴DB 동시 수정 : 추가한 메서드 */
-	
+
 	
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.acorn.flower.menu.MenuDto;
+
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
 	@Autowired 
@@ -40,6 +42,10 @@ public class CategoryDaoImpl implements CategoryDao {
 		session.update("category.update", dto);
 	}
 
-	
-	
+	@Override
+	public void updateMenu(MenuDto dto) {
+		System.out.println("Received DTO(Dao): " + dto);
+		session.update("category.updateMenu", dto);
+	}
+
 }
