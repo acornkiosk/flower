@@ -33,11 +33,11 @@ public class CategoryController {
 	@Autowired private CategoryService service;
 	@Autowired private MenuService menuService;
 	
-	/** 1.카테고리 등록 페이지 이동처리 */
-	@GetMapping("/menu/category/insert_form")
-	public String insertForm() {
-		return "menu/category/insert_form";
-	}
+//	/** 1.카테고리 등록 페이지 이동처리 */
+//	@GetMapping("/menu/category/insert_form")
+//	public String insertForm() {
+//		return "menu/category/insert_form";
+//	}
 
 	/** 2.등록 페이지 내에서 javascript fetch 함수로 부름 */
 	@ResponseBody
@@ -64,20 +64,20 @@ public class CategoryController {
 	// ========================================
 	
 	/** 1.카테고리 등록 페이지 이동처리 */
-	@GetMapping("/menu/category/insert_form2")
+	@GetMapping("/menu/category/insert_form")
 	public String insertForm2(Model model) {
 		List<CategoryDto> list = service.getList();
 		model.addAttribute("list", list);
-		return "menu/category/insert_form2";
+		return "menu/category/insert_form";
 	}
 	
 	/** 2.등록 페이지 내에서 javascript fetch 함수로 부름 : 사용안함 */
 	
 	/** 3.폼으로 데이터 저장 */
 	@PostMapping("/menu/category/insert")
-	public String insert2(CategoryDto dto) {
+	public String insert(CategoryDto dto) {
 		service.addCategory(dto);
-		return "menu/category/insert_form2";
+		return "menu/category/insert_form";
 	}
 	
 	/** 4.데이터 삭제 : 이제 사용함  */
