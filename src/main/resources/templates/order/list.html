@@ -349,11 +349,12 @@
 
 					<!-- Page Heading -->
 					<h4 class="mb-5"><strong>주문 목록</strong></h4>
+					<button onclick="send()">주문추가 임시임</button>
 					<!--Main layout-->
 					<div class="container">
 						<!--Section: Content-->
 						<section class="text-center">
-							<div class="row">
+							<div class="row" id="body">
 								<div class="col-lg-4 col-md-12 mb-4" th:each="orders : ${map}">
 									<div class="card">
 										<div class="bg-image hover-overlay" data-mdb-ripple-init
@@ -434,7 +435,34 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/sb-admin-2.min.js"></script>
-
+	<script>
+		ws = new WebSocket("ws://" + location.host +"/flower/ws/orderList");
+		
+		ws.onopen = (e) =>{
+			console.log("웹소켓 open");
+		}
+		
+		ws.onmessage = (e) => {
+			console.log(e.data);
+			const body = document.querySelector("#body");
+			body.innerHTML += `
+				<p>데이터 추가됨</p>
+			`;
+			
+		} 
+		
+		ws.onerror = (e) => {
+			console.log("error" + e);
+		}
+		
+		ws.onclose = (e) =>{
+			console.log("웹소켓 닫힘");
+		}
+		
+		function send() {
+			ws.send("보냄보냄");
+		}
+	</script>
 </body>
 
 </html>
