@@ -1,6 +1,7 @@
 package com.acorn.flower.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,9 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.acorn.flower.service.CustomUserDetailsService;
+
 @Configuration //설정 클래스라는 것을 알려준다.
 @EnableWebSecurity //Security 를 설정하기 위한 이노테이션
 public class SecurityConfig {
+	
+	@Autowired private CustomUserDetailsService cud;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
@@ -39,6 +44,7 @@ public class SecurityConfig {
 			.requestMatchers("/emp/**").hasAnyRole("owner","emp","super")  //사장+사원
 			.anyRequest().authenticated()
 		)
+
 		.formLogin(config->
 			config	
 			.loginPage("/user/login_form")
@@ -49,6 +55,7 @@ public class SecurityConfig {
 			.failureForwardUrl("/user/fail") //로그인 실패경로
 			.permitAll() //위에 명시한 모든 여청겨로를 로그인 없이 요청할수 있도록 설정
 		)
+
 		.logout(config->
 			config
 				.logoutUrl("/user/logout")  
