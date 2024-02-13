@@ -2,7 +2,6 @@ package com.acorn.flower.config;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -13,6 +12,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -40,6 +40,34 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 
 		//sessin 에 저장하기
 		session.setAttribute("id", id);
+		
+		
+
+		
+		//체크박스 체크할 경우 쿠키값을 생성한다.	
+		if("save-id".equals(request.getParameter("save-id"))) {
+			//쿠키 생성하기
+			Cookie cookie=new Cookie("cid",id);
+			cookie.setMaxAge(60*60);
+			cookie.setPath(request.getContextPath());
+			response.addCookie(cookie);
+
+			System.out.println("yes:"+request.getParameter("save-id"));
+			
+		}
+		//체크박스 체크 하지 않을 경우 쿠키값을 삭제해준다.
+		else {
+			//쿠키 삭제하기
+			Cookie cookie=new Cookie("cid","");
+			cookie.setMaxAge(0);
+			cookie.setPath(request.getContextPath());
+			response.addCookie(cookie);
+			
+			System.out.println("no:"+request.getParameter("save-id"));
+		}
+
+		
+		
 		// 3. 로그인 성공이후 미리 저장된 요청이 있었는지 읽어와서
 		SavedRequest cashed=requestCache.getRequest(request, response);
 		
@@ -56,4 +84,3 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 	}
 	
 }
-
