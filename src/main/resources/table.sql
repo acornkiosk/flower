@@ -35,6 +35,27 @@ CREATE TABLE menu(
  DROP sequence category_seq;
  DROP table category;
  
+ 
+ CREATE SEQUENCE detail_options_seq;
+
+ CREATE TABLE detail_options(
+ option_id NUMBER,
+ id NUMBER PRIMARY KEY NOT NULL,
+ description VARCHAR2(50) NOT NULL,
+ price NUMBER NOT NULL,
+ img_url VARCHAR2(2000)
+ ); 
+ 
+ 
+ CREATE SEQUENCE options_seq;
+
+ CREATE TABLE options(
+ category_id NUMBER,
+ id NUMBER PRIMARY KEY NOT NULL,
+ name VARCHAR2(50) NOT NULL
+ ); 
+ 
+ 
 ----- 메뉴관리 DB 용(끝) -----
  
 
