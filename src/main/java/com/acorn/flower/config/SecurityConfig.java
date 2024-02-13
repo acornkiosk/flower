@@ -44,7 +44,13 @@ public class SecurityConfig {
 			.requestMatchers("/emp/**").hasAnyRole("owner","emp","super")  //사장+사원
 			.anyRequest().authenticated()
 		)
-
+		.rememberMe(config->
+			config
+			.rememberMeParameter("remember-me")
+			.tokenValiditySeconds(6000)
+			.userDetailsService(cud)
+			.alwaysRemember(false)
+		)
 		.formLogin(config->
 			config	
 			.loginPage("/user/login_form")
