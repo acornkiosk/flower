@@ -126,7 +126,7 @@
 										</td>
 										<td><a class="btn btn-danger btn-sm delete-link" 
 											th:attr="data-id=${tmp.id}"
-											herf="javascript:">[[${tmp.id}]]삭제</a></td>
+											herf="javascript:">삭제</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -186,7 +186,7 @@
 							현재 페이지 URL로 재전송하는 코드입니다.
 							새로고침처럼 보일 순 있지만 조금 차이가 있습니다. 
 							이 방법은 session를 유지할 수 있고 이전 데이터에서 최신화까지 가능합니다.
-							http 프로토콜 무결
+							http 프로토콜 무결성 문제를 어느 정도 보안할 수 있다. 
 						*/
 						console.log(data)
 						window.location.href = window.location.href;
@@ -394,21 +394,6 @@
 					.catch(error=>{
 						console.log(error);
 					}); 
-					
-					
-
-					/*// 메뉴의 category와 카고리의 name을 삭제하기
-					fetch(`[[@{/}]]menu/category/delete/${id}`)
-					.then(res=>res.json())
-					.then(data=>{
-						console.log(data)
-						window.location.href = window.location.href;
-					})
-					.catch(error=>{
-						console.log(error);
-					}); */
-					
-					
 					
 				});
 			}

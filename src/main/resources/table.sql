@@ -56,6 +56,14 @@ CREATE TABLE menu(
  ); 
  
  
+  CREATE SEQUENCE menu_set_seq;
+  
+  CREATE TABLE menu_set(
+  set_id NUMBER,
+  menu_id NUMBER NOT NULL
+  );
+ 
+ 
 ----- 메뉴관리 DB 용(끝) -----
  
 
