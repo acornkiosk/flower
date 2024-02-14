@@ -374,15 +374,14 @@
 											<th>직급</th>
 											<th>수정</th>
 											<th>삭제</th>
-
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="tmp:${list}">
-											<th th:text="${tmp.id}">ID</th>
-											<th th:text="${tmp.rank}">RANK</th>
+											<th th:text="${tmp.id}"></th>
+											<th th:text="${tmp.rank}"></th>
 											<th><a class="btn btn-primary" data-toggle="modal"
-													data-target="'#updateModal' + ${tmp.id}">
+													th:data-target="'#updateModal' + ${tmp.id}">
 													<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 														fill="currentColor" class="bi bi-person-vcard"
 														viewBox="0 0 16 16">
@@ -403,44 +402,48 @@
 															d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
 													</svg></a>
 											</th>
-												<div class="modal fade" th:id="'updateModal' + ${tmp.id}" tabindex="-1" aria-labelledby="'updateModalLabel'+ ${tmp.id}" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h3 class="modal-title fs-5" th:id="'updateModalLabel'+ ${tmp.id}">[[${tmp.id}]]번 rank 변경하기</h3>
-																<button type="button" class="btn btn-close" data-dismiss="modal"
-																	aria-label="Close">X</button>
-															</div>
-															<div class="modal-body d-flex justify-content-between">
-														<form th:action="@{/owner/user/update}" method="post">
-															<input id="permissionInput" class="form-control" name="rank"
-																type="text" readonly />
-															<div class="dropdown mr-1 me-auto bd-highlight">
-																<button type="button"
-																	class="btn btn-secondary dropdown-toggle"
-																	data-toggle="dropdown" aria-expanded="false"
-																	data-offset="10,20">
-																	권한 설정
-																</button>
-																<div class="dropdown-menu">
-																	<a class="dropdown-item"
-																		onclick="selectPermission('manager')">manager</a>
-																	<a class="dropdown-item"
-																		onclick="selectPermission('emp')">emp</a>
-																</div>
-															</div>
-															<div>
-																<button type="reset" class="btn btn-secondary"
-																	data-dismiss="modal">취소</button>
-																<button type="submit" class="btn btn-primary ml-1">권한
-																	수정</button>
-															</div>
-														</form>
-													</div>
-									
+											<div class="modal fade" th:id="'updateModal' + ${tmp.id}" tabindex="-1"
+												aria-labelledby="'updateModalLabel'+ ${tmp.id}" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h3 class="modal-title fs-5"
+																th:id="'updateModalLabel'+ ${tmp.id}">[[${tmp.id}]]번
+																rank 변경하기</h3>
+															<button type="button" class="btn btn-close"
+																data-dismiss="modal" aria-label="Close">X</button>
 														</div>
+														<div class="modal-body d-flex justify-content-between">
+															<form th:action="@{/owner/user/update}" method="post">
+																<input id="permissionInput" class="form-control"
+																	name="rank" type="text" readonly />
+																<div class="dropdown mr-1 me-auto bd-highlight">
+																	<button type="button"
+																		class="btn btn-secondary dropdown-toggle"
+																		data-toggle="dropdown" aria-expanded="false"
+																		data-offset="10,20">
+																		권한 설정
+																	</button>
+																	<div class="dropdown-menu">
+																		<a class="dropdown-item"
+																			onclick="selectPermission('manager')">manager</a>
+																		<a class="dropdown-item"
+																			onclick="selectPermission('emp')">emp</a>
+																	</div>
+																</div>
+																<div>
+																	<button type="reset" class="btn btn-secondary"
+																		data-dismiss="modal">취소</button>
+																	<button type="submit"
+																		class="btn btn-primary ml-1">권한
+																		수정</button>
+																</div>
+															</form>
+														</div>
+
 													</div>
 												</div>
+											</div>
 										</tr>
 									</tbody>
 								</table>
@@ -453,7 +456,22 @@
 
 			</div>
 			<!-- End of Main Content -->
+			<!-- kiosk Add Modal -->
+			<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title fs-5" id="userModalLabel">직원 추가하기</h3>
+							<button type="button" class="btn btn-close" data-dismiss="modal"
+								aria-label="Close">X</button>
+						</div>
+						<div class="modal-body container">
+							body부분임 여기에다가 추가하면됨
+						</div>
 
+					</div>
+				</div>
+			</div>
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
