@@ -1,5 +1,9 @@
 package com.acorn.flower.user;
 
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +17,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
+	@Autowired
+	private UserService service;
 	
+	//사용자 한명의 정보 수정 요청
+	@PostMapping("/owner/user/update")
+	public String userUpdate(UserDto dto) {
+		service.updateUser(dto);
+		return "redirect:/owner/user/index";
+	}
+	
+	//사용자 한명의 추가 요청
+	@PostMapping("/owner/user/add")
+	public String userInsert(UserDto dto) {
+		service.insertUser(dto);
+		return "redirect:/owner/user/index";
+	}
+	
+	//직원 한명의 삭제 요청
+	@GetMapping("/owner/user/delete")
+	public String userDelete(String id) {
+		service.deleteUser(id);
+		return "redirect:/owner/user/index";
+	}
+	
+	// 직원관리 페이지 이동
+	@GetMapping("/owner/user/index")
+	public String userIndex(Model model) {
+		List<UserDto> list = service.getUserList();
+		model.addAttribute("list", list);
+		return "user/index";
+	}
+
+
 	// 로그인 폼 요청
 	@GetMapping("/user/login_form")
 	public String loginForm(@CookieValue(value = "cid", required = false) String cid, Model model) {
