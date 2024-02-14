@@ -311,14 +311,28 @@
 						</li>
 
 						<div class="topbar-divider d-none d-sm-block"></div>
-
 						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow">
+<<<<<<< Updated upstream
+						<div style="margin-top: 25px;">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name"></span>
+							<span th:text="${roleLabel}"></span>	
+						</div>
+						<li class="nav-item dropdown no-arrow" th:if="${#authorization.expression('isAuthenticated()')}">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">						
+=======
+						<li class="nav-item dropdown no-arrow" th:if="${#authorization.expression('isAuthenticated()')}">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name"></span>
+								<span th:if="${currentUserRole == 'ROLE_super'}">[관리자]</span>
+					            <span th:if="${currentUserRole == 'ROLE_owner'}">[사장님]</span>
+					            <span th:if="${currentUserRole == 'ROLE_emp'}">[직원]</span>
+								
+>>>>>>> Stashed changes
 								<img class="img-profile rounded-circle" th:src="@{/img/undraw_profile.svg}">
 							</a>
+			
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
