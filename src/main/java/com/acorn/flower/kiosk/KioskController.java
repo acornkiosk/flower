@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,25 @@ public class KioskController {
 	@GetMapping("/emp/kiosk/index")
 	public String kioskIndex(Model model) {
 		List<KioskDto> list = service.getKioskList();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null && auth.isAuthenticated()) {
+	        // 인증된 사용자의 권한을 가져옴
+	        String role = auth.getAuthorities().iterator().next().getAuthority();
+	        // 권한에 따라 라벨을 설정
+	        String roleLabel = "";
+	        if (role.equals("ROLE_super")) {
+	            roleLabel = "[관리자]";
+	        } else if (role.equals("ROLE_owner")) {
+	            roleLabel = "[사장님]";
+	        } else if (role.equals("ROLE_emp")) {
+	            roleLabel = "[직원]";
+	        }
+	        System.out.println("역할"+roleLabel);
+	        // 모델에 권한 라벨 추가
+	        model.addAttribute("roleLabel", roleLabel);
+	    }
+		
+		
 		model.addAttribute("list", list);
 		return "/kiosk/index";
 		//todo 나중에 경로 수정해야함

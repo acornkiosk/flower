@@ -1,5 +1,7 @@
 package com.acorn.flower.user;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -53,4 +55,19 @@ public class UserController {
 	public String roleFail() {
 		return "user/roleFail";
 	}
+	
+
+	/**
+	 * 로그아웃 하면 로그인 페이지로 리디렉션
+	 * @return
+	 */
+	@GetMapping("/logout")
+	public String logoutPage() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            SecurityContextHolder.getContext().setAuthentication(null); // 현재 사용자 인증 해제
+        }
+        return "redirect:/user/login_form"; // 로그인 페이지로 리디렉션
+    }
+
 }
