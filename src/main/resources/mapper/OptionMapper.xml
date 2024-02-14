@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="option">
+	<!-- 
+	<select id="getOption" parameterType="optionsDto" resultType="resultDto">
+	SELECT o1.*, d.name as option_name, d.description as description, d.price as price
+	FROM
+		(
+			SELECT o.category_id as category_id, c.name as category_name, o.id as option_id
+			FROM options o
+			JOIN category c ON o.category_id = c.id
+		) o1
+	JOIN detail_options d ON o1.option_id = d.option_id
+	</select>
+	 -->
+	
+	
+	
+</mapper>
