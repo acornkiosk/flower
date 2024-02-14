@@ -1,4 +1,4 @@
-package com.acorn.flower.config;
+package com.acorn.flower.config.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

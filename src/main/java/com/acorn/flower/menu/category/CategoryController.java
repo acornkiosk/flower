@@ -33,36 +33,6 @@ public class CategoryController {
 	@Autowired private CategoryService service;
 	@Autowired private MenuService menuService;
 	
-//	/** 1.카테고리 등록 페이지 이동처리 */
-//	@GetMapping("/menu/category/insert_form")
-//	public String insertForm() {
-//		return "menu/category/insert_form";
-//	}
-
-	/** 2.등록 페이지 내에서 javascript fetch 함수로 부름 */
-	@ResponseBody
-	@GetMapping("/menu/category/getCategoryList")
-	public List<CategoryDto> getCategoryList(){
-		return service.getList();
-	}
-	
-//	/** 3.폼으로 데이터 저장(중복방지 주석처리)*/
-//	@PostMapping("/menu/category/insert")
-//	public String insert(CategoryDto dto) {
-//		service.addCategory(dto);
-//		return "redirect:/menu/category/insert_form";
-//	}
-//	
-//	/** 4.데이터 삭제 */
-//	@ResponseBody
-//	@GetMapping("/menu/category/delete/{id}")
-//	public String DeleteCategory(@PathVariable int id) {
-//		service.deleteCategory(id);
-//		return "ok";
-//	}
-	
-	// ========================================
-	
 	/** 1.카테고리 등록 페이지 이동처리 */
 	@GetMapping("/menu/category/insert_form")
 	public String insertForm2(Model model) {
@@ -109,7 +79,7 @@ public class CategoryController {
 		return "connectMenuDB";
 	}
 	
-	/** 6.카테고리 수정 : 추가한 메서드 */
+	/** 7.카테고리 수정 : 추가한 메서드 */
 	@ResponseBody
 	@PostMapping("/menu/category/update")
 	public String update(CategoryDto dto) {
@@ -117,8 +87,6 @@ public class CategoryController {
 		return "updateComplet";
 	}
 
-
-	
 	/** 카테고리가 일치하는 메뉴의 갯수*/
 	@ResponseBody
 	@GetMapping("/menu/category/menuRowCount/{id}")

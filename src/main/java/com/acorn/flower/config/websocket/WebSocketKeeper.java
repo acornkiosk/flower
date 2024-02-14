@@ -1,4 +1,4 @@
-package com.acorn.flower.config;
+package com.acorn.flower.config.websocket;
 
 import java.util.HashMap;
 import java.util.Map;
