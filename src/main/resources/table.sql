@@ -53,7 +53,10 @@ CREATE TABLE menu(
  name VARCHAR2(50) NOT NULL
  ); 
  
---option_details 
+ DROP SEQUENCE options_seq;
+ DROP TABLE options;
+ 
+ --option_details 
  CREATE SEQUENCE options_details_seq;
  
  CREATE TABLE option_details(
@@ -61,20 +64,25 @@ CREATE TABLE menu(
  id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL,
  price NUMBER NOT NULL,
- img_url VARCHAR2(2000)
+ img_url VARCHAR2(2000),
+ CONSTRAINT fk_option_id FOREIGN KEY (option_id) REFERENCES options(id) ON DELETE CASCADE
  ); 
  
 
  
+ DROP SEQUENCE options_details_seq;
+ DROP TABLE option_details;
 
  
+
  
-  CREATE SEQUENCE menu_set_seq;
+ --menu_set
+ CREATE SEQUENCE menu_set_seq;
   
-  CREATE TABLE menu_set(
-  set_id NUMBER,
-  menu_id NUMBER NOT NULL
-  );
+ CREATE TABLE menu_set(
+ set_id NUMBER,
+ menu_id NUMBER NOT NULL
+ );
  
  
 ----- 메뉴관리 DB 용(끝) -----
