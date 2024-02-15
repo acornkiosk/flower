@@ -17,7 +17,7 @@ public class OptionDetailsDaoImpl implements OptionDetailsDao{
 
 	@Override
 	public List<OptionDetailsDto> getList() {
-		// TODO Auto-generated method stub
+		
 		return session.selectList("optionDetails.getList");
 	}
 
