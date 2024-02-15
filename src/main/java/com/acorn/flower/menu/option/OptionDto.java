@@ -14,7 +14,4 @@ import lombok.NoArgsConstructor;
 public class OptionDto {
 	private int id;
 	private String name;
-	
-	
-	
 }
