@@ -26,5 +26,10 @@
 	WHERE id=#{id}
 </update>
 
+<delete id="delete" parameterType="int">
+	DELETE option_details
+	WHERE id=#{id}
+</delete>
+
 
 </mapper>

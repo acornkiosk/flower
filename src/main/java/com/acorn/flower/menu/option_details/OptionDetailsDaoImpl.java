@@ -32,6 +32,12 @@ public class OptionDetailsDaoImpl implements OptionDetailsDao{
 		session.update("optionDetails.update",dto);
 		
 	}
+
+	@Override
+	public void delete(int id) {
+		session.delete("optionDetails.delete",id);
+		
+	}
 	
 	
 }

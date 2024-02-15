@@ -27,7 +27,13 @@ public class OptionDetailsServiceImpl implements OptionDetailsService{
 
 	@Override
 	public void updateOptionDetails(OptionDetailsDto dto) {
-		// TODO Auto-generated method stub
+		optionDetailsDao.update(dto);
+		
+	}
+
+	@Override
+	public void deleteOptionDetails(int id) {
+		optionDetailsDao.delete(id);
 		
 	}
 

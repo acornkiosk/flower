@@ -7,5 +7,6 @@ public interface OptionDetailsDao {
 	public List<OptionDetailsDto> getList();
 	public OptionDetailsDto getData(int id);
 	public void update(OptionDetailsDto dto);
+	public void delete(int id);
 	
 }
