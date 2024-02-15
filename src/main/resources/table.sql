@@ -40,9 +40,14 @@ CREATE TABLE menu(
  
  CREATE TABLE matchs(
  id NUMBER PRIMARY KEY,
- category_id NUMBER,
- option_id NUMBER
+ category_id NUMBER NOT NULL,
+ option_id NUMBER NOT NULL,
+ CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
+ CONSTRAINT fk_option_id2 FOREIGN KEY (option_id) REFERENCES options(id) ON DELETE CASCADE
  );
+ 
+ DROP SEQUENCE seq_matchs;
+ DROP TABLE matchs;
 
 
 --options
