@@ -34,26 +34,36 @@ CREATE TABLE menu(
  
  DROP sequence category_seq;
  DROP table category;
+
+--matchs
+ CREATE SEQUENCE seq_matchs;
  
+ CREATE TABLE matchs(
+ id NUMBER PRIMARY KEY,
+ category_id NUMBER,
+ option_id NUMBER
+ );
 
 
+--options
  CREATE SEQUENCE options_seq;
 
  CREATE TABLE options(
+ id NUMBER PRIMARY KEY,
+ name VARCHAR2(50) NOT NULL
+ ); 
+ 
+--option_details 
+ CREATE SEQUENCE options_details_seq;
+ 
+ CREATE TABLE option_details(
  option_id NUMBER,
+ id NUMBER PRIMARY KEY NOT NULL,
  name VARCHAR2(50) NOT NULL,
- details_id NUMBER PRIMARY KEY NOT NULL,
- details VARCHAR2(50) NOT NULL,
  price NUMBER NOT NULL,
  img_url VARCHAR2(2000)
  ); 
  
- CREATE SEQUENCE seq_matchs;
- 
- CREATE TABLE matchs(
- category_id NUMBER,
- option_id NUMBER
- );
 
  
 

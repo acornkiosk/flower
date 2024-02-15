@@ -13,6 +13,12 @@
 	JOIN detail_options d ON o1.option_id = d.option_id
 	</select>
 	 -->
+	 
+	 <insert id="insert" parameterType="optionDto">
+	 	INSERT INTO options
+	 	(id,name)
+	 	VALUES(options_seq,#{name})
+	 </insert>
 	
 	
 	
