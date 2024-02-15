@@ -17,7 +17,7 @@
 	 <insert id="insert" parameterType="optionDto">
 	 	INSERT INTO options
 	 	(id,name)
-	 	VALUES(options_seq,#{name})
+	 	VALUES(options_seq.NEXTVAL,#{name})
 	 </insert>
 	
 	
