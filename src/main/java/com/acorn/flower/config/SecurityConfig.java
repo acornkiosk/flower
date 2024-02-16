@@ -1,28 +1,36 @@
 package com.acorn.flower.config;
 
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.acorn.flower.service.CustomUserDetailsService;
 
 @Configuration //설정 클래스라는 것을 알려준다.
 @EnableWebSecurity //Security 를 설정하기 위한 이노테이션
+
+
 public class SecurityConfig {
 	
 	@Autowired private CustomUserDetailsService cud;
-	
-	@Bean
+
+	 @Autowired private DataSource dataSource;
+
+	 @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity hs) throws Exception{
 		
 		String[] whiteList= {"/",
@@ -44,13 +52,7 @@ public class SecurityConfig {
 			.requestMatchers("/emp/**").hasAnyRole("owner","emp","super")  //사장+사원
 			.anyRequest().authenticated()
 		)
-		.rememberMe(config->
-			config
-			.rememberMeParameter("remember-me")
-			.tokenValiditySeconds(6000)
-			.userDetailsService(cud)
-			.alwaysRemember(false)
-		)
+
 		.formLogin(config->
 			config	
 			.loginPage("/user/login_form")
@@ -61,8 +63,7 @@ public class SecurityConfig {
 			.failureForwardUrl("/user/fail") //로그인 실패경로
 			.permitAll() //위에 명시한 모든 여청겨로를 로그인 없이 요청할수 있도록 설정
 		)
-
-		.logout(config->
+		  .logout(config->
 			config
 				.logoutUrl("/user/logout")  
 				.logoutSuccessUrl("/") //로그아웃 성공시
@@ -71,6 +72,10 @@ public class SecurityConfig {
 		.exceptionHandling(config->
 			config
 				.accessDeniedPage("/user/roleFail") //권한에 맞지 않는 경로 요청시 이동시킬 경로
+		).rememberMe(config->
+		config
+		.tokenRepository(persitstentTokenRepository()) //토큰 저장소 설정
+		.tokenValiditySeconds(86400) //하루 
 		);
 
 		return hs.build();
@@ -82,7 +87,7 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	//인증 매니저 객체를 xbean 으로 만든다 (s s 가 자동 로그인 처리할떄도 사용되는 객체
+	//인증 매니저 객체를 bean 으로 만든다 (스프링 시큐리티	 가 자동 로그인 처리할떄도 사용되는 객체)
 	@Bean
 	AuthenticationManager am(HttpSecurity http,
 			BCryptPasswordEncoder bcryptPasswordEncoder,UserDetailsService userDetailsService) throws Exception{
@@ -94,5 +99,11 @@ public class SecurityConfig {
 				.build();
 		
 	}
-
+	
+	@Bean
+	public PersistentTokenRepository persitstentTokenRepository() {
+		JdbcTokenRepositoryImpl repo=new JdbcTokenRepositoryImpl(); //사용자의 로그인 토큰을 저장하고 관리하는 인터페이스(Security에서 제공해준다)
+		repo.setDataSource(dataSource); //매소드를 통해 yml에 설정한 db와 연동
+		return repo;
+	}
 }
