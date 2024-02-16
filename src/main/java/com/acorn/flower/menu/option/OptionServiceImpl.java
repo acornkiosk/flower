@@ -39,4 +39,11 @@ public class OptionServiceImpl implements OptionService {
 		
 	}
 
+
+	@Override
+	public List<OptionListDto> getOptionAndDetailsList(int option_id) {
+		List<OptionListDto> list=optionDao.getOptionAndDetailsList(option_id);
+		return list;
+	}
+
 }

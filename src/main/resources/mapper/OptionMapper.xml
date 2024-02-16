@@ -14,6 +14,15 @@
 	</select>
 	 -->
 
+	  <select id="getOptionAndDetailsList" parameterType="int" resultType="optionListDto">
+ 		SELECT o.id AS option_id, o.name AS option_name,
+		   od.id AS option_details_id, od.name AS option_details_name, od.price, od.img_url
+		FROM options o
+		JOIN option_details od ON o.id = od.option_id
+		WHERE option_id=#{option_id}
+     </select>
+    
+
 	 <select id="getList" resultType="optionDto">
 	 	SELECT id,name
 	 	FROM options

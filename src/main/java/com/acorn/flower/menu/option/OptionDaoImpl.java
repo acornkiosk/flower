@@ -38,4 +38,12 @@ public class OptionDaoImpl implements OptionDao {
 		session.delete("option.delete",id);
 		
 	}
+
+	@Override
+	public List<OptionListDto> getOptionAndDetailsList(int option_id) {
+		return session.selectList("option.getOptionAndDetailsList",option_id);
+		 
+	}
+
+
 }
