@@ -1,10 +1,19 @@
 package com.acorn.flower.menu.match;
 
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 
 
@@ -32,6 +41,21 @@ public class MatchApiController {
 	@DeleteMapping("api/match/{id}")
 	public void deleteMatch(@PathVariable int id) {
 		matchService.deleteMatch(id);	
+	}
+	
+	/** Select : get_OptionsAndMatchList(특정 옵션과 매치된 카테고리 조회) */
+	@GetMapping("api/option/Match/list/{option_id}")
+	public Map<String, Object> getOptionsAndMatchList(@PathVariable int option_id){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<MatchListDto> list =matchService.getOptionAndMatchList(option_id);
+		if(list != null) {
+			result.put("isSuccess", true);
+			result.put("list", list);
+		} else { 
+			result.put("isSuccess", false);
+			result.put("list", null);
+		}
+		return result;
 	}
 
 }
