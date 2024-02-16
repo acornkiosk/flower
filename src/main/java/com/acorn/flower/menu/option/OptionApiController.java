@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * React 리팩토링 대비코드, API 활용 option관리 Controller <br>
  * 
- * @author "이승우", "김대원"
- * @since 2024-02-07
+ * @author "김대원"
+ * @since 2024-02-15
  * @version 0.1 / 프로젝트 버전
  */
 
@@ -75,4 +75,21 @@ public class OptionApiController {
 	public void deleteOptionDetails(@PathVariable int id) {
 		optionService.deleteOption(id);
 	}
+	
+	/** Select : get_OptionAndDetails(특정 옵션 세부항목 조회) */
+	@GetMapping("api/option/details/list/{option_id}")
+	public Map<String, Object> optionAndDeltail(@PathVariable int option_id) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<OptionListDto> list=optionService.getOptionAndDetailsList(option_id);
+		
+		if(list != null) {
+			result.put("isSuccess", true);
+			result.put("list", list);
+		} else { 
+			result.put("isSuccess", false);
+			result.put("list", null);
+		}
+		return result;
+	}
+	
 }

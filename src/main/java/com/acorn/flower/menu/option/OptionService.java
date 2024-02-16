@@ -8,4 +8,6 @@ public interface OptionService {
 	public OptionDto getData(int id);
 	public void updateOption(OptionDto dto);
 	public void deleteOption(int id);
+	
+	public List<OptionListDto> getOptionAndDetailsList(int option_id);
 }
