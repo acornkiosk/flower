@@ -13,6 +13,7 @@
 	JOIN detail_options d ON o1.option_id = d.option_id
 	</select>
 	 -->
+
 	 <select id="getList" resultType="optionDto">
 	 	SELECT id,name
 	 	FROM options
@@ -40,5 +41,5 @@
 	 	DELETE options
 	 	WHERE id=#{id}
 	 </delete>	
-	
+
 </mapper>

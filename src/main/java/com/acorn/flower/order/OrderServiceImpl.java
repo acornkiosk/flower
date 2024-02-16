@@ -31,6 +31,10 @@ public class OrderServiceImpl implements OrderService{
 	public Set<Integer> getOrderId() {
 		return dao.getOrderId();
 	}
+	@Override
+	public int getTotalPrice(int id) {
+		return dao.getTotalPrice(id);
+	}
 	
 	
 }

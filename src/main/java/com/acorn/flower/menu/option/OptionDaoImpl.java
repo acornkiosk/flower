@@ -38,5 +38,4 @@ public class OptionDaoImpl implements OptionDao {
 		session.delete("option.delete",id);
 		
 	}
-
 }

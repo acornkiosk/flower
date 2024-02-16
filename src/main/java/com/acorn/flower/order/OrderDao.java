@@ -9,4 +9,5 @@ public interface OrderDao {
 	public boolean checkOrder(int id);
 	public boolean deleteOrder(int id);
 	public Set<Integer> getOrderId();
+	public int getTotalPrice(int id);
 }

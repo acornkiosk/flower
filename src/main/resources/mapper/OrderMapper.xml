@@ -18,7 +18,7 @@
 		SELECT *
 		FROM 
 			(
-				SELECT o.id AS order_id, o.kiosk_id, m.name AS menu_name, o.menu_count, o.is_completed, o.regdate
+				SELECT o.id AS order_id, o.kiosk_id, m.name AS menu_name, m.price AS menu_price,o.menu_count, o.is_completed, o.regdate
 				FROM orders o
 				JOIN menu m ON o.menu_id = m.id
 			) 
@@ -27,6 +27,16 @@
 	<insert id="insert" parameterType="orderDto">
 		INSERT INTO orders
 		(id,menu_id, menu_count, kiosk_id, is_completed,regdate)
-		VALUES(#{id},#{menu_id},#{menu_count},#{kiosk_id},'false',SYSDATE)
+		VALUES(#{id},#{menu_id},#{menu_count},1,'false',SYSDATE)
 	</insert>
+	<select id="getTotalPrice" parameterType="int" resultType="int">
+		SELECT SUM(menu_price * menu_count)
+		FROM 
+			(
+				SELECT o.id AS order_id, o.kiosk_id, m.name AS menu_name, m.price AS menu_price,o.menu_count, o.is_completed, o.regdate
+				FROM orders o
+				JOIN menu m ON o.menu_id = m.id
+			) 
+		WHERE order_id = #{id}
+	</select>
 </mapper>

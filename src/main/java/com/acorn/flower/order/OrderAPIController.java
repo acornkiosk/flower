@@ -91,4 +91,18 @@ public class OrderAPIController {
 		return result;
 	}
 	
+	/**
+	 * 주문번호 총 가격
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("api/orders/getTotalPrice/{id}")
+	public Map<String, Object> getTotalPrice(@PathVariable int id) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		int totalPrice = service.getTotalPrice(id);
+		result.put("totalPrice", totalPrice);
+		
+		return result;
+	}
+	
 }

@@ -16,6 +16,7 @@ public class ListDto {
 	private int order_id;
 	private int kiosk_id;
 	private String menu_name;
+	private int menu_price;
 	private int menu_count;
 	private String is_completed;
 	private String regdate;
