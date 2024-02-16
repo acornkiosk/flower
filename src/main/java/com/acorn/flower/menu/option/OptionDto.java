@@ -16,4 +16,7 @@ public class OptionDto {
 	private int id;
 	private String name;
 	
+	//category의 id를 구하기 위한 필드
+	private String category_name;
+	
 }

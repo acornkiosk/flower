@@ -35,25 +35,28 @@ CREATE TABLE menu(
  DROP sequence category_seq;
  DROP table category;
  
- 
- CREATE SEQUENCE detail_options_seq;
 
- CREATE TABLE detail_options(
+
+ CREATE SEQUENCE options_seq;
+
+ CREATE TABLE options(
  option_id NUMBER,
- id NUMBER PRIMARY KEY NOT NULL,
- description VARCHAR2(50) NOT NULL,
+ name VARCHAR2(50) NOT NULL,
+ details_id NUMBER PRIMARY KEY NOT NULL,
+ details VARCHAR2(50) NOT NULL,
  price NUMBER NOT NULL,
  img_url VARCHAR2(2000)
  ); 
  
+ CREATE SEQUENCE seq_matchs;
  
- CREATE SEQUENCE options_seq;
-
- CREATE TABLE options(
+ CREATE TABLE matchs(
  category_id NUMBER,
- id NUMBER PRIMARY KEY NOT NULL,
- name VARCHAR2(50) NOT NULL
- ); 
+ option_id NUMBER
+ );
+
+ 
+
  
  
   CREATE SEQUENCE menu_set_seq;
