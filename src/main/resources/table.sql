@@ -115,3 +115,13 @@ CREATE TABLE orders(
  regdate DATE --주문시간
 );
 
+
+
+--자동 로그인 토큰 저장하기위한 테이블--
+CREATE TABLE persistent_logins
+(
+    username   VARCHAR2(38) NOT NULL,  --사용자 id
+    series     VARCHAR2(64) NOT NULL,  --브라우저 쿠키를 구별하는 고유 값
+    token      VARCHAR2(64) NOT NULL, --﻿브라우저 가지고있는 쿠키의 값 인증값
+    last_used  TIMESTAMP   NOT NULL --최근 로그인 시간
+);
