@@ -13,7 +13,33 @@
 	JOIN detail_options d ON o1.option_id = d.option_id
 	</select>
 	 -->
+
+	 <select id="getList" resultType="optionDto">
+	 	SELECT id,name
+	 	FROM options
+	 </select>
+	 
+	 <select id="getData" parameterType="int" resultType="optionDto">
+	 	SELECT id,name
+	 	FROM options
+	 	WHERE id=#{id}
+	 </select>
+	 
+	 <insert id="insert" parameterType="optionDto">
+	 	INSERT INTO options
+	 	(id,name)
+	 	VALUES(options_seq.NEXTVAL,#{name})
+	 </insert>
+	 
+	 <update id="update" parameterType="optionDto">
+	 	UPDATE options
+	 	SET name=#{name}
+	 	WHERE id=#{id}
+	 </update>
 	
-	
-	
+	 <delete id="delete" parameterType="int">
+	 	DELETE options
+	 	WHERE id=#{id}
+	 </delete>	
+
 </mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="optionDetails">
+
+<select id="getList" resultType="optionDetailsDto">
+	SELECT option_id,id,name,price,img_url 
+	FROM option_details
+</select>
+
+<select id="getData" parameterType="int" resultType="optionDetailsDto">
+	SELECT option_id,id,name,price,img_url
+	FROM option_details
+	WHERE id=#{id}
+</select>
+
+<insert id="insert" parameterType="optionDetailsDto">
+	INSERT INTO option_details
+	(option_id,id,name,price,img_url)
+	VALUES(#{option_id},options_details_seq.NEXTVAL,#{name},#{price},#{img_url})
+</insert>
+
+
+<update id="update" parameterType="optionDetailsDto">
+	UPDATE option_details
+	SET name=#{name}, price=#{price}, img_url=#{img_url}
+	WHERE id=#{id}
+</update>
+
+<delete id="delete" parameterType="int">
+	DELETE option_details
+	WHERE id=#{id}
+</delete>
+
+
+</mapper>

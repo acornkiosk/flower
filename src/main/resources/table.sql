@@ -34,37 +34,60 @@ CREATE TABLE menu(
  
  DROP sequence category_seq;
  DROP table category;
- 
 
-
- CREATE SEQUENCE options_seq;
-
- CREATE TABLE options(
- option_id NUMBER,
- name VARCHAR2(50) NOT NULL,
- details_id NUMBER PRIMARY KEY NOT NULL,
- details VARCHAR2(50) NOT NULL,
- price NUMBER NOT NULL,
- img_url VARCHAR2(2000)
- ); 
- 
+--matchs
  CREATE SEQUENCE seq_matchs;
  
  CREATE TABLE matchs(
- category_id NUMBER,
- option_id NUMBER
+ id NUMBER PRIMARY KEY,
+ category_id NUMBER NOT NULL,
+ option_id NUMBER NOT NULL,
+ CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
+ CONSTRAINT fk_option_id2 FOREIGN KEY (option_id) REFERENCES options(id) ON DELETE CASCADE
  );
+ 
+ DROP SEQUENCE seq_matchs;
+ DROP TABLE matchs;
+
+
+--options
+ CREATE SEQUENCE options_seq;
+
+ CREATE TABLE options(
+ id NUMBER PRIMARY KEY,
+ name VARCHAR2(50) NOT NULL
+ ); 
+ 
+ DROP SEQUENCE options_seq;
+ DROP TABLE options;
+ 
+ --option_details 
+ CREATE SEQUENCE options_details_seq;
+ 
+ CREATE TABLE option_details(
+ option_id NUMBER,
+ id NUMBER PRIMARY KEY NOT NULL,
+ name VARCHAR2(50) NOT NULL,
+ price NUMBER NOT NULL,
+ img_url VARCHAR2(2000),
+ CONSTRAINT fk_option_id FOREIGN KEY (option_id) REFERENCES options(id) ON DELETE CASCADE
+ ); 
+ 
+
+ 
+ DROP SEQUENCE options_details_seq;
+ DROP TABLE option_details;
 
  
 
  
- 
-  CREATE SEQUENCE menu_set_seq;
+ --menu_set
+ CREATE SEQUENCE menu_set_seq;
   
-  CREATE TABLE menu_set(
-  set_id NUMBER,
-  menu_id NUMBER NOT NULL
-  );
+ CREATE TABLE menu_set(
+ set_id NUMBER,
+ menu_id NUMBER NOT NULL
+ );
  
  
 ----- 메뉴관리 DB 용(끝) -----
