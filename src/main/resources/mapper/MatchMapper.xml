@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="match">
+
 	<!-- 옵션 매치 카테고리 동시에 가져오기 -->
-	<select id="getList" >
+	<select id="getOptionAndMatchList" parameterType="int" resultType="matchListDto">
 		SELECT om.option_id AS option_id,om.option_name AS option_name, om.match_id AS match_id, 
 					om.category_id AS category_id, c.name AS category_name
 		FROM
@@ -13,7 +14,7 @@
 				JOIN options o on m.option_id = o.id
 			) om
 		JOIN category c ON om.category_id= c.id	
-		WHERE option_id=1
+		WHERE option_id=#{option_id}
 	</select>
 
 	<insert id="insert" parameterType="matchDto">
