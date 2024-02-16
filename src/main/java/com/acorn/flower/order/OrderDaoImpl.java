@@ -51,4 +51,9 @@ public class OrderDaoImpl implements OrderDao {
 		return set;
 	}
 
+	@Override
+	public int getTotalPrice(int id) {
+		return session.selectOne("order.getTotalPrice",id);
+	}
+
 }
